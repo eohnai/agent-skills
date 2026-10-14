@@ -1,0 +1,7 @@
+interface:
+  display_name: "skills-lint"
+  short_description: "Audit skill names, invocation policies, and descriptions"
+  default_prompt: "Use $skills-lint to audit my skills and propose fixes."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "explain-issue"
+  short_description: "Explain review comments, feedback, or bugs with root cause, evidence, and a fix"
+  default_prompt: "Use $explain-issue to explain these issues: check the evidence, then give the root cause, recommendation, and where to change."
+
+policy:
+  allow_implicit_invocation: false
