@@ -7,10 +7,41 @@
 #
 # Safe to re-run: existing links are refreshed, links left behind by moved or
 # deleted skills are removed, and real folders are never replaced.
+#
+# ./link.sh --global also connects the shared instructions in global/AGENTS.md:
+# Codex gets a symlink at ~/.codex/AGENTS.md, and Claude Code's ~/.claude/CLAUDE.md
+# imports the file. Opt-in, so someone else using these skills doesn't get your rules.
 set -euo pipefail
 
 repo="$(cd "$(dirname "$0")" && pwd)"
 targets=("$HOME/.claude/skills" "$HOME/.agents/skills")
+
+link_global() {
+  local shared="$repo/global/AGENTS.md"
+  local codex="$HOME/.codex/AGENTS.md"
+  local claude="$HOME/.claude/CLAUDE.md"
+  local import="@${shared/#$HOME/~}"
+
+  mkdir -p "$(dirname "$codex")"
+  if [ -L "$codex" ] && [ "$(readlink "$codex")" = "$shared" ]; then
+    echo "ok        $codex"
+  elif [ -L "$codex" ] || [ ! -e "$codex" ]; then
+    ln -sfn "$shared" "$codex"
+    echo "linked    $codex"
+  else
+    echo "SKIPPED   $codex (a real file is there; merge it into global/AGENTS.md, then delete it)" >&2
+  fi
+
+  if [ ! -e "$claude" ]; then
+    mkdir -p "$(dirname "$claude")"
+    printf '%s\n\n<!-- Add anything specific to this machine below. -->\n' "$import" > "$claude"
+    echo "created   $claude (imports global/AGENTS.md)"
+  elif grep -qxF "$import" "$claude"; then
+    echo "ok        $claude (imports global/AGENTS.md)"
+  else
+    echo "TODO      $claude: add this line at the top: $import" >&2
+  fi
+}
 
 # Collect skills and refuse to continue if two categories use the same name,
 # because both would want the same link.
@@ -54,3 +85,7 @@ for dir in "${targets[@]}"; do
     fi
   done
 done
+
+if [ "${1:-}" = "--global" ]; then
+  link_global
+fi

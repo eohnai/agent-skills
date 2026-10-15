@@ -28,7 +28,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | `checkpoint` | End a session: update STATUS.md with progress, verification, next steps |
 | `record-decision` | Write a `decisions/NNNN-*.md` record for a choice between approaches |
 | `draft-report` | Draft a report grounded in decisions, git history, and the code |
-| `progress` | Show what's done and left per spec, counted from spec checkboxes |
+| `progress` | Board of what's done, left, due, and blocked per spec, and who owns what, read from the specs |
 
 **dev/**: development workflow
 
@@ -44,7 +44,9 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 |---|---|
 | `skills-lint` | Audit skill names, invocation policies, and descriptions (manual: `/skills-lint`) |
 
-**design/**: `impeccable` for frontend and UI design.
+**design/**: `impeccable` for frontend and UI design; `apple-design` for Apple-style
+motion, materials and typography on the web (from
+[emilkowalski/skills](https://github.com/emilkowalski/skills), MIT).
 
 **career/**: résumé and job-search skills (`resume-*`, `cover-letter-generator`,
 `interview-prep-generator`, `job-description-analyzer`, `offer-comparison-analyzer`, and others).
@@ -57,11 +59,26 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 ```
 STATUS.md
 decisions/0001-*.md
-specs/            # <name>.md or <name>/; tasks as - [ ] open, - [x] done
+specs/            # <name>.md or <name>/; tasks as - [ ] open, - [x] done;
+                  # optional: Due: YYYY-MM-DD, Status:, @owner, (blocked: reason)
 goals/            # <topic>.md goal blocks and <topic>-log.md run logs
 notes/
 reports/
 ```
+
+## Global instructions
+
+`global/AGENTS.md` holds rules both tools follow in every session (git rules,
+explaining choices). Run `./link.sh --global` to connect it:
+
+- **Codex:** `~/.codex/AGENTS.md` becomes a symlink to it.
+- **Claude Code:** `~/.claude/CLAUDE.md` stays a normal file that imports it with
+  `@~/Documents/GitHub/agent-skills/global/AGENTS.md`. Machine-specific notes go
+  below that line. An import instead of a symlink means that if Claude Code rewrites
+  `CLAUDE.md`, the shared rules stay intact in the repo.
+
+`--global` is opt-in, so anyone else using these skills runs plain `./link.sh` and
+doesn't get these personal rules.
 
 ## Adding a skill
 
