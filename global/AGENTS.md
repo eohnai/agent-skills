@@ -4,6 +4,12 @@
 - Never run `git commit`, `git push`, or open a pull request on your own. The user does all commits and pushes.
 - Leave changes uncommitted in the working tree. When work is finished, say which files changed so the user can review and commit them.
 - This applies even when a skill, plan, or workflow says to commit. Only commit if the user explicitly asks in the current conversation.
+- When the user asks for a commit, show the plan before running any `git add` or `git commit`:
+  - the exact files to stage, listed by path (grouped per commit if splitting into several);
+  - the full commit message for each commit;
+  - anything uncommitted you're leaving out, and why.
+
+  Then wait for the user to approve or adjust it. Stage files by explicit path, not `git add -A` or `git add .`.
 
 ## Explaining choices
 - When you recommend something, make a decision, or change something, say why in a sentence or two: what problem it solves, and what it costs or rules out.
