@@ -10,13 +10,13 @@
 #   Due: YYYY-MM-DD               deadline; flagged when close or overdue
 #
 # Usage: bash progress.sh [records-folder]
-#   default: "." if ./STATUS.md exists, else "docs" if ./docs/STATUS.md exists, else "."
+#   default: "." if ./STATUS.md exists, else "docs" if ./docs/STATUS.md or ./docs/specs/ exists, else "."
 set -euo pipefail
 
 root="${1:-}"
 if [ -z "$root" ]; then
   if [ -f STATUS.md ]; then root=.
-  elif [ -f docs/STATUS.md ]; then root=docs
+  elif [ -f docs/STATUS.md ] || [ -d docs/specs ]; then root=docs
   else root=.
   fi
 fi

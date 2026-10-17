@@ -1,0 +1,46 @@
+---
+name: next-task
+description: Use when the user wants to work on the next task from a project's specs, says next task or do the next thing, or names a task from a spec to work on.
+---
+
+# Next Task
+
+## Overview
+
+One session, one task: catch up, plan the task, do it, verify it, checkpoint. Keeping each session to a single task keeps the context small and forces the records to carry everything the next session needs.
+
+```
+fresh session → next-task → /clear → fresh session → next-task → ...
+```
+
+## Steps
+
+1. **Catch up.** If `catch-up` hasn't run in this session, **REQUIRED:** use `catch-up`. If the project has no specs, suggest `plan-feature` first.
+2. **Pick one task.** The task the user named; otherwise the board's next task from the spec catch-up pointed to. Skip blocked tasks. Confirm the pick with the user in one line before planning.
+3. **Size check.** If the task can't be finished and verified in this session (several areas of the code, an unsettled design choice), propose splitting it into smaller `- [ ]` tasks in the spec and do only the first. Change the spec only if the user agrees.
+4. **Grind or hands-on?** If the task is repetitive and has a pass/fail check that can run every turn (make failing tests pass, migrate every caller of an API, fix all lint errors), offer to run it unattended as a `/goal`. If the user agrees, **REQUIRED:** use `make-goal` with this task as the aim, instead of the steps below; the goal checkpoints itself. When you hand over the goal block, tell the user to commit, `/clear`, and run `next-task` once the goal finishes. Anything needing judgment along the way (design, UI, choosing between approaches) stays hands-on.
+5. **Plan in the chat**, short, and wait for the user's OK:
+   - files to change and what changes in each;
+   - names and signatures this task creates that later tasks in the spec will use;
+   - steps in order; if the project has tests, start with one that fails without the change;
+   - how it will be verified: the exact command and the output that means it passed;
+   - any choice between approaches: give the options and let the user pick, then **REQUIRED:** use `record-decision`.
+
+   If the repo is on `main`, `master`, or its default branch, propose a branch name with the plan and create it once the user OKs.
+6. **Do the task**, and only this task. Anything else you notice (a bug, a missing task, a stale note): write it down and keep going. Don't fix it in this change.
+7. **Verify** with the command from the plan and show the result. If it fails and the cause isn't obvious from the output, **REQUIRED:** use `debug-issue`; then rerun. If it can't pass this session, stop: mark the task `(blocked: reason)` or leave it open, and say why.
+8. **Checkpoint.** **REQUIRED:** use `checkpoint`. Tick the task only if verification passed. Offer to add what you noted along the way to the spec as new `- [ ]` tasks or to STATUS.md Blockers.
+9. **Hand off.** List the changed files, including STATUS.md and the spec, and suggest a one-line commit message taken from the task line (`Add /login endpoint returning a JWT`), so the user can commit this task on its own. Then tell them to `/clear` and run `next-task` again for the next task. You can't clear the session yourself.
+
+## When to stop early
+
+- The plan turns out wrong (the code isn't what the records said, the task depends on unfinished work): stop, tell the user, and checkpoint what you learned.
+- The same failure three times: stop and checkpoint with the error, instead of trying a fourth variation.
+
+## Common mistakes
+
+- Starting a second task because the first was quick. Checkpoint and hand off instead; the next session starts cleaner.
+- Ticking a task that was written but not verified.
+- Planning the whole feature again. The spec already has the tasks; plan only this one.
+
+Do not commit; the user commits.

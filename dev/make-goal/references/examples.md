@@ -37,7 +37,7 @@ STOP AND REPORT (do not keep trying) IF:
 - the same failing case survives 3 turns with no new approach (paste its error and your diagnosis)
 - the remaining failures are third-party stub issues outside src/payments (list them as blockers)
 
-ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why.
+ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and list the changed files for the user to review and commit.
 
 ---
 
@@ -74,7 +74,7 @@ STOP AND REPORT (do not keep trying) IF:
 - 15 turns have passed
 - a term is genuinely irrelevant to A's topic (mark it blocked with the reason instead of forcing it)
 
-ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why.
+ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and list the changed files for the user to review and commit.
 
 ---
 
@@ -118,7 +118,7 @@ STOP AND REPORT (do not keep trying) IF:
 - 20 turns have passed
 - the lowest dimension doesn't improve for 3 turns (report which one and why: missing material, or conflicting requirements?)
 
-ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why.
+ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and list the changed files for the user to review and commit.
 ````
 
 ---
@@ -159,7 +159,7 @@ STOP AND REPORT (do not keep trying) IF:
 - 60 turns or 8 hours have passed
 - one target stalls for 4 turns (mark it blocked with the reason and move to the next one)
 
-ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why. A complete tiered report is a valid finish even if few results are confirmed.
+ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and list the changed files for the user to review and commit. A complete tiered report is a valid finish even if few results are confirmed.
 
 ---
 

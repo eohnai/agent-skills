@@ -24,6 +24,8 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 
 | Skill | Use it to |
 |---|---|
+| `plan-feature` | Turn an idea into a spec: goal, done-when checks, decisions, session-sized tasks |
+| `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
 | `catch-up` | Start a session: read the records and git, report where things stand |
 | `checkpoint` | End a session: update STATUS.md with progress, verification, next steps |
 | `record-decision` | Write a `decisions/NNNN-*.md` record for a choice between approaches |
@@ -35,6 +37,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | Skill | Use it to |
 |---|---|
 | `make-goal` | Turn an aim into a bounded `/goal` block and a per-turn log |
+| `debug-issue` | Find a bug's root cause before fixing it: reproduce, narrow down, test one hypothesis, fix, verify |
 | `explain-issue` | Explain review comments, feedback, or bugs: root cause, evidence, fix (manual: `/explain-issue`) |
 | `glab` | Work with GitLab from the command line |
 
@@ -73,7 +76,8 @@ explaining choices). Run `./link.sh --global` to connect it:
 
 - **Codex:** `~/.codex/AGENTS.md` becomes a symlink to it.
 - **Claude Code:** `~/.claude/CLAUDE.md` stays a normal file that imports it with
-  `@~/Documents/GitHub/agent-skills/global/AGENTS.md`. Machine-specific notes go
+  a line like `@~/Projects/agent-skills/global/AGENTS.md` (`link.sh` writes the
+  path of wherever you cloned the repo). Machine-specific notes go
   below that line. An import instead of a symlink means that if Claude Code rewrites
   `CLAUDE.md`, the shared rules stay intact in the repo.
 
