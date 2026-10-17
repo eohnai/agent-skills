@@ -36,4 +36,6 @@ Write to `reports/<short-name>.md` in the records folder. End the file with:
 
 Tell the user the file path and how many items are in Needs checking. Before submitting, they remove the `^[inferred]` markers once each claim is confirmed.
 
+If this is the final writeup for a finished project, offer to add it to the resume and website with `update-portfolio`.
+
 Do not commit; the user commits.

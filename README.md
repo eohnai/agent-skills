@@ -51,7 +51,8 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 motion, materials and typography on the web (from
 [emilkowalski/skills](https://github.com/emilkowalski/skills), MIT).
 
-**career/**: résumé and job-search skills (`resume-*`, `cover-letter-generator`,
+**career/**: `update-portfolio` adds a finished project or role to the website's fact
+bank and the resume. Also résumé and job-search skills (`resume-*`, `cover-letter-generator`,
 `interview-prep-generator`, `job-description-analyzer`, `offer-comparison-analyzer`, and others).
 
 ## Project records
