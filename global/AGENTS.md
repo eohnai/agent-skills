@@ -13,6 +13,17 @@
 
   Then wait for the user to approve or adjust it. Stage files by explicit path, not `git add -A` or `git add .`.
 
+## Writing
+- Write in plain English, based on Simplified Technical English (ASD-STE100), for a reader who is new to the topic:
+  - Lead with the answer, then the reason.
+  - Start from a concrete example (what happens, to what, when), then the general idea.
+  - One new idea per sentence. Explain a technical term the first time you use it.
+  - Keep sentences short: 20 words or fewer for instructions, 25 for explanations.
+  - One instruction per sentence. Write steps as commands ("Run `pnpm test`").
+  - Use active voice and simple tenses. No idioms or slang.
+  - Use one word for one meaning, and the same word for the same thing throughout.
+- Keep code, commands, file paths, and error messages exact.
+
 ## Explaining choices
 - When you recommend something, make a decision, or change something, say why in a sentence or two: what problem it solves, and what it costs or rules out.
 - When there were real alternatives, say why they lost.
