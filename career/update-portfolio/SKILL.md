@@ -42,7 +42,7 @@ If a path is missing, ask where it moved; don't recreate it.
    - Website: `pnpm check && pnpm build && pnpm test` in the website repo; the build validates the YAML against the schemas.
 
    Show the results. If a resume runs to two pages, propose what to trim; don't shrink the font or margins.
-9. **Hand off.** List changed files in both repos for the user to review and commit.
+9. **Hand off.** Give the commit commands for each repo, using `git -C <repo>` so they run from anywhere, e.g. `git -C ~/Projects/resume add resume.tex resume-variants/backend/resume.tex` and `git -C ~/Projects/resume commit -m "docs: add SMRT OT monitoring project"`.
 
 ## Common mistakes
 

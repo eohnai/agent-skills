@@ -30,7 +30,7 @@ fresh session → next-task → /clear → fresh session → next-task → ...
 6. **Do the task**, and only this task. Anything else you notice (a bug, a missing task, a stale note): write it down and keep going. Don't fix it in this change.
 7. **Verify** with the command from the plan and show the result. If it fails and the cause isn't obvious from the output, **REQUIRED:** use `debug-issue`; then rerun. If it can't pass this session, stop: mark the task `(blocked: reason)` or leave it open, and say why.
 8. **Checkpoint.** **REQUIRED:** use `checkpoint`. Tick the task only if verification passed. Offer to add what you noted along the way to the spec as new `- [ ]` tasks or to STATUS.md Blockers.
-9. **Hand off.** List the changed files, including STATUS.md and the spec, and suggest a one-line commit message taken from the task line (`Add /login endpoint returning a JWT`), so the user can commit this task on its own. Then tell them to `/clear` and run `next-task` again for the next task. You can't clear the session yourself.
+9. **Hand off.** Give the commands to commit this task on its own: one `git add` listing every changed file by path, including STATUS.md and the spec, and one `git commit -m "<type>: <task line>"` (`feat: add /login endpoint returning a JWT`; `fix`, `refactor`, `test`, or `docs` when that fits the task better). Then tell them to `/clear` and run `next-task` again for the next task. You can't clear the session yourself.
 
 ## When to stop early
 

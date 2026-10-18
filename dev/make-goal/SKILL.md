@@ -48,7 +48,7 @@ STOP AND REPORT (do not keep trying) IF:
 - the same criterion fails 3 turns in a row with no new approach
 - blocked on: <missing access, a decision only the user can make, an ambiguous spec>
 
-ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and list the changed files for the user to review and commit.
+ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in its Final result; run the checkpoint skill to update STATUS.md; then summarize what passed, what didn't, and why, and give the git add and git commit -m "<type>: <summary>" commands for the user to review and run.
 ```
 
 ## Why the log
