@@ -1,0 +1,7 @@
+interface:
+  display_name: "unslop"
+  short_description: "Cut AI-sounding patterns from a draft"
+  default_prompt: "Use $unslop to cut AI-sounding patterns from this draft."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "blast-radius"
+  short_description: "Find what a change could break beyond its diff"
+  default_prompt: "Use $blast-radius to check what my current change could break."
+
+policy:
+  allow_implicit_invocation: false

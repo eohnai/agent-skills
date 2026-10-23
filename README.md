@@ -39,6 +39,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | `make-goal` | Turn an aim into a bounded `/goal` block and a per-turn log |
 | `debug-issue` | Find a bug's root cause before fixing it: reproduce, narrow down, test one hypothesis, fix, verify |
 | `explain-issue` | Explain review comments, feedback, or bugs: root cause, evidence, fix (manual: `/explain-issue`) |
+| `blast-radius` | Find what a change could break beyond its diff, and prove the fact it's safe because of (manual: `/blast-radius`) |
 | `glab` | Work with GitLab from the command line |
 
 **meta/**: maintaining these skills
@@ -46,6 +47,11 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | Skill | Use it to |
 |---|---|
 | `skills-lint` | Audit skill names, invocation policies, and descriptions (manual: `/skills-lint`) |
+
+**writing/**: `unslop` cuts AI-sounding patterns from a draft (manual: `/unslop`).
+
+`blast-radius` and `unslop` are adapted from
+[pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT).
 
 **design/**: `impeccable` for frontend and UI design; `apple-design` for Apple-style
 motion, materials and typography on the web (from
