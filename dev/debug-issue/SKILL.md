@@ -20,7 +20,7 @@ If the user wants the problem explained rather than fixed, that is `explain-issu
    - Confirmed: go to step 5.
    - Not confirmed: undo the probe and form a new hypothesis from what you learned. Don't build on a failed one.
    - Stuck: say what you don't understand and what evidence would settle it, and ask.
-5. **Lock it in with a test.** Before fixing, write a test (or a one-off script if the project has no tests) that fails because of the bug. Run it and show that it fails.
+5. **Lock it in with a test.** Before fixing, write a test (or a one-off script if the project has no tests) that fails because of the bug. Run it and show that it fails. Prefer no new test over a bad test. A bad test mostly checks mocks or internals, depends on timing, or needs heavy setup (a full end-to-end stack, production-only state) for a small fix. In that case, use the closest check you can run, such as a script or a reproduction command, and say why there is no test.
 6. **Fix the cause**, in one change. No cleanup or refactoring alongside it; note those for later. First ask whether the bad state is allowed to happen. If it is, the code that broke on it is the cause, so handle the state there. If it should never exist, a guard where it broke only hides the bug, so fix the code that produced the state.
 7. **Verify.** Rerun the reproduction from step 1, the new test, and the surrounding test suite. Show the output. "Should work now" is not verification.
 

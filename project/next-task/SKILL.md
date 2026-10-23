@@ -21,7 +21,7 @@ fresh session → next-task → /clear → fresh session → next-task → ...
 4. **Grind or hands-on?** If the task is repetitive and has a pass/fail check that can run every turn (make failing tests pass, migrate every caller of an API, fix all lint errors), offer to run it unattended as a `/goal`. If the user agrees, **REQUIRED:** use `make-goal` with this task as the aim, instead of the steps below; the goal checkpoints itself. When you hand over the goal block, tell the user to commit, `/clear`, and run `next-task` once the goal finishes. Anything needing judgment along the way (design, UI, choosing between approaches) stays hands-on.
 5. **Plan in the chat**, short, and wait for the user's OK:
    - files to change and what changes in each;
-   - names and signatures this task creates that later tasks in the spec will use;
+   - names and signatures this task creates that later tasks in the spec will use. When the task adds new modules, types, or functions, sketch them first: the types and signatures with empty bodies, and one short example of how a caller uses them. If the caller example is awkward, change the sketch before writing code;
    - steps in order; if the project has tests, start with one that fails without the change;
    - how it will be verified: the exact command and the output that means it passed;
    - any choice between approaches: give the options and let the user pick, then **REQUIRED:** use `record-decision`.
@@ -35,6 +35,7 @@ fresh session → next-task → /clear → fresh session → next-task → ...
 ## When to stop early
 
 - The plan turns out wrong (the code isn't what the records said, the task depends on unfinished work): stop, tell the user, and checkpoint what you learned.
+- The design fights the code. Signs: the same workaround appears in several places, many edge cases each need their own special branch, types need escape hatches (`any`, casts) to compile, or callers must know the internals to use it. Stop and say the design is wrong. Don't patch more code onto it. One awkward case is not enough, so look for a pattern.
 - The same failure three times: stop and checkpoint with the error, instead of trying a fourth variation.
 
 ## Common mistakes
