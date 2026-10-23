@@ -27,7 +27,10 @@ fresh session → next-task → /clear → fresh session → next-task → ...
    - how it will be verified: the exact command and the output that means it passed;
    - any choice between approaches: give the options and let the user pick, then **REQUIRED:** use `record-decision`.
 
-   If the repo is on `main`, `master`, or its default branch, propose a branch name with the plan and create it once the user OKs.
+   **One branch per spec, not per task.** Every task from a spec goes on the same branch, named after the spec file (`specs/auth.md` → `feat/auth`). Check `git branch --show-current`:
+   - On that branch: stay on it.
+   - On the default branch: switch to the spec's branch if it exists, or create it if not. Propose this with the plan, and do it once the user OKs.
+   - On a different branch: name it and ask whether to switch.
 6. **Do the task**, and only this task. Anything else you notice (a bug, a missing task, a stale note): write it down and keep going. Don't fix it in this change.
 7. **Verify** with the command from the plan and show the result. If it fails and the cause isn't obvious from the output, **REQUIRED:** use `debug-issue`; then rerun. If it can't pass this session, stop: mark the task `(blocked: reason)` or leave it open, and say why.
 8. **Checkpoint.** **REQUIRED:** use `checkpoint`. Tick the task only if verification passed. Offer to add what you noted along the way to the spec as new `- [ ]` tasks or to STATUS.md Blockers.
