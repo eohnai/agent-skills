@@ -11,7 +11,7 @@ Write down where the project stands so the next session (yours or an agent's) ca
 
 ## Finding the records
 
-Same rule as `catch-up`: `./STATUS.md` → records folder is `.`; else `./docs/STATUS.md` → `docs/`. If neither exists, ask whether this is a workspace (create at root) or a single repo (create in `docs/`), then create STATUS.md from the template below.
+Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/STATUS.md` → `docs/`. If neither exists, ask whether this is a workspace (create at root) or a single repo (create in `docs/`), then create STATUS.md from the template below.
 
 ## Steps
 

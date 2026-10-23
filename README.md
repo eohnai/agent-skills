@@ -26,7 +26,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 |---|---|
 | `plan-feature` | Turn an idea into a spec: goal, done-when checks, decisions, session-sized tasks |
 | `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
-| `catch-up` | Start a session: read the records and git, report where things stand |
+| `ketchup` | Start a session: read the records and git, report where things stand |
 | `checkpoint` | End a session: update STATUS.md with progress, verification, next steps |
 | `record-decision` | Write a `decisions/NNNN-*.md` record for a choice between approaches |
 | `draft-report` | Draft a report grounded in decisions, git history, and the code |

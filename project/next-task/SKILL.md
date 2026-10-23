@@ -15,8 +15,8 @@ fresh session → next-task → /clear → fresh session → next-task → ...
 
 ## Steps
 
-1. **Catch up.** If `catch-up` hasn't run in this session, **REQUIRED:** use `catch-up`. If the project has no specs, suggest `plan-feature` first.
-2. **Pick one task.** The task the user named; otherwise the board's next task from the spec catch-up pointed to. Skip blocked tasks. Confirm the pick with the user in one line before planning.
+1. **Catch up.** If `ketchup` hasn't run in this session, **REQUIRED:** use `ketchup`. If the project has no specs, suggest `plan-feature` first.
+2. **Pick one task.** The task the user named; otherwise the board's next task from the spec `ketchup` pointed to. Skip blocked tasks. Confirm the pick with the user in one line before planning.
 3. **Size check.** If the task can't be finished and verified in this session (several areas of the code, an unsettled design choice), propose splitting it into smaller `- [ ]` tasks in the spec and do only the first. Change the spec only if the user agrees.
 4. **Grind or hands-on?** If the task is repetitive and has a pass/fail check that can run every turn (make failing tests pass, migrate every caller of an API, fix all lint errors), offer to run it unattended as a `/goal`. If the user agrees, **REQUIRED:** use `make-goal` with this task as the aim, instead of the steps below; the goal checkpoints itself. When you hand over the goal block, tell the user to commit, `/clear`, and run `next-task` once the goal finishes. Anything needing judgment along the way (design, UI, choosing between approaches) stays hands-on.
 5. **Plan in the chat**, short, and wait for the user's OK:

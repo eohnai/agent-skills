@@ -13,7 +13,7 @@ The usual failure is planning what you assume the user wants. Find out what they
 
 ## Finding the records
 
-Same rule as `catch-up`: `./STATUS.md` → records folder is `.`; else `./docs/STATUS.md` → `docs/`. If neither exists, ask whether this is a workspace (records at root) or a single repo (records in `docs/`), then create STATUS.md there from the `checkpoint` template with this feature under **Now**. The other skills find the records folder by its STATUS.md, so a `specs/` folder without one is invisible to them. Create `specs/` if missing.
+Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/STATUS.md` → `docs/`. If neither exists, ask whether this is a workspace (records at root) or a single repo (records in `docs/`), then create STATUS.md there from the `checkpoint` template with this feature under **Now**. The other skills find the records folder by its STATUS.md, so a `specs/` folder without one is invisible to them. Create `specs/` if missing.
 
 ## Steps
 

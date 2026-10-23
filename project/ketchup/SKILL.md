@@ -1,9 +1,9 @@
 ---
-name: catch-up
+name: ketchup
 description: Use when starting or returning to work on a project, when the user asks where things stand, what changed, or what to do next, or at the start of a session in a repo or workspace that has STATUS.md.
 ---
 
-# Catch Up
+# Ketchup
 
 ## Overview
 
