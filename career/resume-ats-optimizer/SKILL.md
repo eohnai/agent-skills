@@ -1,6 +1,7 @@
 ---
 name: resume-ats-optimizer
-description: Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match
+description: Use when the user wants a resume checked for ATS screening or keyword match against job postings, or asks why applications get no response; for layout only, use resume-formatter
+disable-model-invocation: true
 ---
 
 # Resume ATS Optimizer

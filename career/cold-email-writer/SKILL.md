@@ -1,6 +1,7 @@
 ---
 name: cold-email-writer
-description: Write personalized cold outreach emails to hiring managers and founders — specific, human, not a pitch deck
+description: Use when the user wants a cold outreach email to a hiring manager, founder, or recruiter, about a role they were not referred to or a company they want to join
+disable-model-invocation: true
 ---
 
 # Cold Email Writer

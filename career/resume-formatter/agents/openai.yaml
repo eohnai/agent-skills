@@ -1,0 +1,5 @@
+interface:
+  display_name: "resume-formatter"
+
+policy:
+  allow_implicit_invocation: false

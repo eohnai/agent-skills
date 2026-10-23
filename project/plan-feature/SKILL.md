@@ -1,6 +1,7 @@
 ---
 name: plan-feature
 description: Use when the user wants to start a new feature, assignment, or chunk of work and needs it turned into a spec with tasks, or says plan this, write a spec, or break this down, before any code is written.
+disable-model-invocation: true
 ---
 
 # Plan Feature

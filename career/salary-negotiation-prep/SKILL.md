@@ -1,6 +1,7 @@
 ---
 name: salary-negotiation-prep
-description: Research market rates, build negotiation strategy, and create counter-offer scripts
+description: Use when the user wants to negotiate a job offer or salary, including market-rate research and a counter-offer script; to choose between offers, use offer-comparison-analyzer
+disable-model-invocation: true
 ---
 
 # Salary Negotiation Prep

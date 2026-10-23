@@ -1,6 +1,7 @@
 ---
 name: portfolio-case-study-writer
-description: Transform resume bullets into detailed portfolio case studies
+description: Use when the user wants a project or resume bullet expanded into a detailed portfolio case study; for adding a finished project to their resume or website, use update-portfolio
+disable-model-invocation: true
 ---
 
 # Portfolio Case Study Writer

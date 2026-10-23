@@ -1,0 +1,5 @@
+interface:
+  display_name: "offer-comparison-analyzer"
+
+policy:
+  allow_implicit_invocation: false

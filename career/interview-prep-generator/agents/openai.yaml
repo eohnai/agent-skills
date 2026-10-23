@@ -1,0 +1,5 @@
+interface:
+  display_name: "interview-prep-generator"
+
+policy:
+  allow_implicit_invocation: false

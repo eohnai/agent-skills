@@ -1,6 +1,6 @@
 ---
 name: glab
-description: Expert guidance for using the GitLab CLI (glab) to manage GitLab issues, merge requests, CI/CD pipelines, repositories, and other GitLab operations from the command line. Use this skill when the user needs to interact with GitLab resources or perform GitLab workflows.
+description: Use when the user wants to work with GitLab from the command line with the glab CLI, such as issues, merge requests, CI/CD pipelines, or repositories
 allowed-tools: Bash, Read, Grep, Glob
 ---
 

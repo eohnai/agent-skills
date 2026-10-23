@@ -1,6 +1,7 @@
 ---
 name: next-task
 description: Use when the user wants to work on the next task from a project's specs, says next task or do the next thing, or names a task from a spec to work on.
+disable-model-invocation: true
 ---
 
 # Next Task

@@ -1,6 +1,7 @@
 ---
 name: creative-portfolio-resume
-description: Balance visual design with ATS compatibility for creative roles
+description: Use when the user wants a resume for a creative role, such as design, marketing, writing, or photography, that shows visual style but still passes ATS screening
+disable-model-invocation: true
 ---
 
 # Creative Portfolio Resume

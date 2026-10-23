@@ -1,6 +1,7 @@
 ---
 name: application-form-filler
-description: Fill out job application form fields with context-aware, tailored answers drawn from the candidate's CV and the job description
+description: Use when the user wants answers to the questions on a job application form, such as Greenhouse, Lever, or Workday fields, drawn from their CV and the job description
+disable-model-invocation: true
 ---
 
 # Application Form Filler

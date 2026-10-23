@@ -1,6 +1,7 @@
 ---
 name: academic-cv-builder
-description: Format CVs for academic positions with publications, grants, and teaching
+description: Use when the user wants an academic CV for a faculty, postdoc, or research position, with sections for publications, grants, teaching, and service
+disable-model-invocation: true
 ---
 
 # Academic CV Builder

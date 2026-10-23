@@ -1,0 +1,5 @@
+interface:
+  display_name: "creative-portfolio-resume"
+
+policy:
+  allow_implicit_invocation: false

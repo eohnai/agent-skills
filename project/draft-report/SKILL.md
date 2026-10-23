@@ -1,6 +1,7 @@
 ---
 name: draft-report
 description: Use when writing a project report, final writeup, design document, reflection, README overview, or presentation notes for a school or personal project, especially one with STATUS.md, decisions, or specs to draw from.
+disable-model-invocation: true
 ---
 
 # Draft Report

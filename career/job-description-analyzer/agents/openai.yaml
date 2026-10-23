@@ -1,0 +1,5 @@
+interface:
+  display_name: "job-description-analyzer"
+
+policy:
+  allow_implicit_invocation: false

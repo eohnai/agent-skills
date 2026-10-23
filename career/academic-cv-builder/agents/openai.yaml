@@ -1,0 +1,5 @@
+interface:
+  display_name: "academic-cv-builder"
+
+policy:
+  allow_implicit_invocation: false

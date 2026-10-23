@@ -1,6 +1,7 @@
 ---
 name: resume-quantifier
-description: Find opportunities to add metrics and estimate numbers when exact data unavailable
+description: Use when the user wants metrics on a resume but says they have no data or can't measure impact, and needs numbers found or estimated; for general rewrites, use resume-bullet-writer
+disable-model-invocation: true
 ---
 
 # Resume Quantifier

@@ -1,6 +1,7 @@
 ---
 name: tech-resume-optimizer
-description: Optimize resumes for software engineering, PM, and technical roles
+description: Use when the user's resume targets software engineering, product management, or other technical roles and needs tech-specific skills, projects, or bullets
+disable-model-invocation: true
 ---
 
 # Tech Resume Optimizer

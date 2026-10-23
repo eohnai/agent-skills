@@ -1,6 +1,7 @@
 ---
 name: resume-formatter
-description: Ensure ATS-friendly formatting and create clean scannable layouts
+description: Use when the user wants a resume's layout and formatting made clean, scannable, and ATS-friendly; not for keyword matching against a job posting (use resume-ats-optimizer)
+disable-model-invocation: true
 ---
 
 # Resume Formatter

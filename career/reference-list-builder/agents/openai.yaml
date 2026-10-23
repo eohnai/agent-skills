@@ -1,0 +1,5 @@
+interface:
+  display_name: "reference-list-builder"
+
+policy:
+  allow_implicit_invocation: false

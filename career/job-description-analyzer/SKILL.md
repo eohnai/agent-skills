@@ -1,6 +1,7 @@
 ---
 name: job-description-analyzer
-description: Analyze job postings, calculate match scores, identify gaps, and create application strategy
+description: Use when the user wants a job posting analyzed, asks whether they qualify or should apply, or wants a match score and gap list; for rewriting the resume to fit, use resume-tailor
+disable-model-invocation: true
 ---
 
 # Job Description Analyzer

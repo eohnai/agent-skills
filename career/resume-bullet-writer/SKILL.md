@@ -1,6 +1,7 @@
 ---
 name: resume-bullet-writer
-description: Transform weak resume bullets into achievement-focused statements with metrics and impact
+description: Use when the user wants resume bullet points rewritten as strong, achievement-focused statements; when they have no numbers and need help finding them, use resume-quantifier
+disable-model-invocation: true
 ---
 
 # Resume Bullet Writer

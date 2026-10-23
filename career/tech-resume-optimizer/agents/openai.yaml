@@ -1,0 +1,5 @@
+interface:
+  display_name: "tech-resume-optimizer"
+
+policy:
+  allow_implicit_invocation: false

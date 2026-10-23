@@ -1,6 +1,7 @@
 ---
 name: resume-version-manager
-description: Track different resume versions, maintain master resume, manage tailored versions
+description: Use when the user has several resume versions and wants to keep a master resume, track tailored copies, or find which version went to which company
+disable-model-invocation: true
 ---
 
 # Resume Version Manager

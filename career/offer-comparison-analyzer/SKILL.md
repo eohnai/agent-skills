@@ -1,6 +1,7 @@
 ---
 name: offer-comparison-analyzer
-description: Compare multiple job offers side-by-side with total compensation analysis
+description: Use when the user has two or more job offers and wants them compared side by side on total compensation and other factors; for negotiating one offer, use salary-negotiation-prep
+disable-model-invocation: true
 ---
 
 # Offer Comparison Analyzer

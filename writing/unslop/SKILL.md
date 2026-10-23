@@ -1,7 +1,6 @@
 ---
 name: unslop
 description: Use when the user wants AI-sounding patterns cut from a piece of writing, such as a cover letter, email, report, README, or PR description, or asks to unslop or de-AI a draft.
-disable-model-invocation: true
 ---
 
 # Unslop

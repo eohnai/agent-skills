@@ -1,0 +1,5 @@
+interface:
+  display_name: "linkedin-profile-optimizer"
+
+policy:
+  allow_implicit_invocation: false

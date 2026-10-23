@@ -1,0 +1,5 @@
+interface:
+  display_name: "salary-negotiation-prep"
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "resume-bullet-writer"
+
+policy:
+  allow_implicit_invocation: false

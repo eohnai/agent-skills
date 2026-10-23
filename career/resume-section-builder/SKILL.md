@@ -1,6 +1,7 @@
 ---
 name: resume-section-builder
-description: Create targeted resume sections optimized for different experience levels and roles
+description: Use when the user needs help with one resume section, such as the summary, skills, education, or experience section, and what to include for their experience level
+disable-model-invocation: true
 ---
 
 # Resume Section Builder

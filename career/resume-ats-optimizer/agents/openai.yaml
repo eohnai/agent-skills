@@ -1,0 +1,5 @@
+interface:
+  display_name: "resume-ats-optimizer"
+
+policy:
+  allow_implicit_invocation: false

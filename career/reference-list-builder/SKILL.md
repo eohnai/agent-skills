@@ -1,6 +1,7 @@
 ---
 name: reference-list-builder
-description: Format professional references properly and prepare reference materials
+description: Use when the user needs a professional reference list for job applications, including choosing references, formatting the list, or preparing references for a check
+disable-model-invocation: true
 ---
 
 # Reference List Builder

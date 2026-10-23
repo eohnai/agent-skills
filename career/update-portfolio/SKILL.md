@@ -1,6 +1,6 @@
 ---
 name: update-portfolio
-description: Use when a school, personal, or team project is finished or reaches a showable milestone, when an internship or job ends, or when the user wants their resume or personal website updated with a project or role.
+description: Use when a school, personal, or team project is finished or reaches a showable milestone, when an internship or job ends, or when the user wants their resume or personal website updated with a project or role; for a long case study, use portfolio-case-study-writer
 ---
 
 # Update Portfolio

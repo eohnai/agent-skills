@@ -1,6 +1,7 @@
 ---
 name: interview-prep-generator
-description: Generate STAR stories, practice questions, and talking points from resume
+description: Use when the user wants to prepare for a job interview, such as building STAR stories, practicing likely questions for the role, or planning talking points
+disable-model-invocation: true
 ---
 
 # Interview Prep Generator

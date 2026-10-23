@@ -1,0 +1,5 @@
+interface:
+  display_name: "resume-version-manager"
+
+policy:
+  allow_implicit_invocation: false
