@@ -29,6 +29,7 @@
   - One instruction per sentence. Write steps as commands ("Run `pnpm test`").
   - Use active voice and simple tenses. No idioms or slang.
   - Use one word for one meaning, and the same word for the same thing throughout.
+  - Don't use semicolons in prose. Write two sentences, or join the parts with a comma and "and" or "but".
 - Keep code, commands, file paths, and error messages exact.
 
 ## Explaining choices
