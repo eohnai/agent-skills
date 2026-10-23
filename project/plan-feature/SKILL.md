@@ -19,7 +19,7 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
 ## Steps
 
 1. **Size it.** If the request is a small, clear change (one area of the code, nothing to decide), say so and suggest doing it directly. A spec is for work that takes more than one session.
-2. **Read first.** Skim the code and any existing spec the feature touches, so questions and tasks match what's already there. If `specs/<name>.md` or `specs/<name>/` exists, update it instead of starting over: add tasks, never untick or delete done ones.
+2. **Read first.** Skim the code and any existing spec the feature touches, so questions and tasks match what's already there. If the feature touches code that neither you nor the user understands yet (several files, services, or layers), use `how` on that area first. If `specs/<name>.md` or `specs/<name>/` exists, update it instead of starting over: add tasks, never untick or delete done ones.
 3. **Ask what's missing.** If the request already says what it does and how to check it, ask the remaining items in one message. If it's vague, ask one question per message, starting with an open one ("Walk me through when you'd use this"); when the user says "you pick", propose something concrete. Cover:
    - What it does, from the user's point of view, and why now.
    - Done when: observable checks ("`pytest tests/auth` passes", "logging in with a wrong password shows an error"), not "works well".
