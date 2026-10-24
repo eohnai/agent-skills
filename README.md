@@ -70,10 +70,11 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 ```
 STATUS.md
 decisions/0001-*.md
-specs/            # <name>.md or <name>/; tasks as - [ ] open, - [x] done;
-                  # optional: Due: YYYY-MM-DD, Status:, @owner, (blocked: reason)
+specs/            # one feature per spec: <area>-<feature>.md or <name>/;
+                  # tasks as - [ ] open, - [x] done; optional: Due: YYYY-MM-DD,
+                  # Needs: <spec>, Status:, @owner, (blocked: reason)
 goals/            # <topic>.md goal blocks and <topic>-log.md run logs
-notes/
+notes/            # <area>-roadmap.md lists the slices (future specs) of big work
 reports/
 ```
 
