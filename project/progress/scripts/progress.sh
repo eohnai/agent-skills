@@ -8,6 +8,10 @@
 #   - [ ] task @name              task owned by name
 #   Status: <value>               overrides the derived status (blocked, dropped, done)
 #   Due: YYYY-MM-DD               deadline; flagged when close or overdue
+#   Needs: <spec>, <spec>         specs that must finish first; shown as "waiting on"
+#
+# Also reads <records>/notes/*-roadmap.md. Each "- `<slice>`: ..." line under a
+# "## Slices" heading that has no spec yet gets a "no spec yet" row.
 #
 # Usage: bash progress.sh [records-folder]
 #   default: "." if ./STATUS.md exists, else "docs" if ./docs/STATUS.md or ./docs/specs/ exists, else "."
@@ -33,7 +37,7 @@ to_epoch() {
 today_epoch="$(to_epoch "$(date +%Y-%m-%d)")"
 
 # Per spec, emits lines:
-#   S  done  left  blocked  status  due  next-task   (fields split by \037, see below)
+#   S  done  left  blocked  status  due  needs  next-task   (fields split by \037, see below)
 #   B  task                 (tab-separated; one per blocked task)
 #   O  owner  is-blocked    (tab-separated; one per @owner on an open task)
 # The S line uses the \037 unit separator because `read` collapses consecutive tabs,
@@ -46,6 +50,7 @@ scan_spec() {
       low = tolower($0)
       if (status == "" && match(low, /^[*_]*status[*_]*:/)) status = field($0, RLENGTH)
       if (due == "" && match(low, /^[*_]*due[*_]*:/)) due = field($0, RLENGTH)
+      if (needs == "" && match(low, /^[*_]*needs[*_]*:/)) needs = field($0, RLENGTH)
       if ($0 ~ /^[[:space:]]*[-*] \[[xX]\]/) { done++; next }
       if (match($0, /^[[:space:]]*[-*] \[ \]/)) {
         task = trim(substr($0, RLENGTH + 1))
@@ -63,7 +68,7 @@ scan_spec() {
     }
     END {
       if (next_task == "") next_task = first_open
-      print "S\037" done + 0 "\037" left + 0 "\037" blocked + 0 "\037" status "\037" due "\037" next_task
+      print "S\037" done + 0 "\037" left + 0 "\037" blocked + 0 "\037" status "\037" due "\037" needs "\037" next_task
     }
   '
 }
@@ -103,6 +108,12 @@ total_done=0
 total_left=0
 total_blocked=0
 
+# First pass: scan every spec, so a spec's Needs can be checked against the others.
+# A spec is finished when it is marked done or dropped, or when all its tasks are ticked.
+names=()
+scans=()
+all_names=" "
+finished=" "
 for entry in "$specs"/*; do
   if [ -d "$entry" ]; then
     name="$(basename "$entry")"
@@ -116,12 +127,30 @@ for entry in "$specs"/*; do
   [ -n "$text" ] || continue
 
   scan="$(printf '%s\n' "$text" | scan_spec)"
-  IFS=$'\037' read -r _ n_done n_left n_blocked status due next < <(printf '%s\n' "$scan" | grep $'^S\037')
+  names+=("$name")
+  scans+=("$scan")
+  all_names+="$name "
+  IFS=$'\037' read -r _ n_done n_left _ status _ _ _ < <(printf '%s\n' "$scan" | grep $'^S\037')
+  if printf '%s' "$status" | grep -qiE '^(done|dropped)' || { [ -z "$status" ] && [ "$n_left" -eq 0 ] && [ "$n_done" -gt 0 ]; }; then
+    finished+="$name "
+  fi
+done
+
+for i in "${!names[@]}"; do
+  name="${names[$i]}"
+  scan="${scans[$i]}"
+  IFS=$'\037' read -r _ n_done n_left n_blocked status due needs next < <(printf '%s\n' "$scan" | grep $'^S\037')
+
+  waiting=""
+  for need in $(printf '%s' "$needs" | tr ',`' '  '); do
+    case "$finished" in *" $need "*) ;; *) waiting+="${waiting:+, }$need" ;; esac
+  done
 
   if [ -z "$status" ]; then
     if [ $((n_done + n_left)) -eq 0 ]; then status="no tasks"
     elif [ "$n_left" -eq 0 ]; then status="all ticked"
     elif [ "$n_blocked" -eq "$n_left" ]; then status="blocked (all open tasks)"
+    elif [ "$n_done" -eq 0 ] && [ -n "$waiting" ]; then status="waiting on $waiting"
     elif [ "$n_done" -eq 0 ]; then status="not started"
     else status="in progress"
     fi
@@ -137,10 +166,30 @@ for entry in "$specs"/*; do
   total_blocked=$((total_blocked + n_blocked))
 done
 
+# Roadmap slices that have no spec yet. Only lines under a "## Slices" heading count.
+unplanned=0
+for roadmap in "$root"/notes/*-roadmap.md; do
+  [ -f "$roadmap" ] || continue
+  while IFS= read -r slice; do
+    case "$all_names" in *" $slice "*) continue ;; esac
+    all_names+="$slice "
+    rows+="| $slice | no spec yet | - | - | - | - | write its spec with plan-feature ($(basename "$roadmap")) |"$'\n'
+    unplanned=$((unplanned + 1))
+  done < <(awk '
+    /^#/ { in_slices = (tolower($0) ~ /^#+[[:space:]]*slices[[:space:]]*$/); next }
+    in_slices && match($0, /^[[:space:]]*[-*] `[^`]+`/) {
+      s = substr($0, RSTART, RLENGTH); sub(/^[^`]*`/, "", s); sub(/`$/, "", s); print s
+    }
+  ' "$roadmap")
+done
+
+total_note=""
+[ "$unplanned" -gt 0 ] && total_note="**+$(plural "$unplanned" slice) with no spec**"
+
 echo "| Spec | Status | Due | Done | Left | Blocked | Next task |"
 echo "|---|---|---|---|---|---|---|"
 printf '%s' "$rows"
-echo "| **Total** | | | **$total_done** | **$total_left** | **$total_blocked** | |"
+echo "| **Total** |${total_note:+ $total_note} | | **$total_done** | **$total_left** | **$total_blocked** | |"
 
 if [ -n "$(printf '%s' "$blocked_list" | tr -d '[:space:]')" ]; then
   echo

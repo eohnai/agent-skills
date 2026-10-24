@@ -29,6 +29,9 @@ Due: 2026-11-20
 | `@name` in a task | Owner (useful in group projects) |
 | `Status: <value>` | Judgment the checkboxes can't show: `blocked: <reason>`, `dropped`, or `done` |
 | `Due: YYYY-MM-DD` | Deadline. Must be this exact format to be checked |
+| `Needs: <spec>, <spec>` | Specs that must finish first. Until they do, a spec with no ticked tasks shows `waiting on <spec>` |
+
+The script also reads `notes/*-roadmap.md` (see `plan-feature`). Each `` - `<slice>`: `` line under a `## Slices` heading that has no spec yet gets a `no spec yet` row, and the Total row counts them.
 
 ## Show the board
 
@@ -45,8 +48,9 @@ Then add two or three lines of commentary, most urgent first:
 1. Anything `OVERDUE` or marked ⚠ (due within 7 days), with how many tasks are left.
 2. Blocked tasks: what each is waiting on, and whether anything can unblock it.
 3. Specs flagged `all ticked` or `(but N unticked)` that need the user's decision.
+4. Roadmap slices with `no spec yet`, if nothing else in the area is left to start.
 
-Derived statuses: `not started`, `in progress`, `blocked (all open tasks)`, `all ticked`, `no tasks`. An explicit `Status:` line wins. Done or dropped specs are never shown as overdue.
+Derived statuses: `not started`, `waiting on <spec>`, `in progress`, `blocked (all open tasks)`, `all ticked`, `no tasks`, and `no spec yet` for roadmap slices. An explicit `Status:` line wins. Done or dropped specs are never shown as overdue.
 
 ## Update progress
 
