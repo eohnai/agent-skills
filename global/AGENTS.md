@@ -21,7 +21,7 @@
   Then wait for the user to approve or adjust it. Stage files by explicit path, not `git add -A` or `git add .`.
 
 ## Writing
-- Explain things simply and briefly, as if the reader knows nothing about the topic. Don't assume they know the terms, the code, or what was said earlier in the conversation. Give the short version first, and add detail only when they need it to understand or decide. Simple doesn't mean childish: no talking down, no filler.
+- Keep it short. Add detail only when the reader needs it to understand or decide. Don't assume they know the code or what was said earlier in the conversation. No filler, and no talking down.
 - Write in plain English, based on Simplified Technical English (ASD-STE100), for a reader who is new to the topic:
   - Lead with the answer, then the reason.
   - Start from a concrete example (what happens, to what, when), then the general idea.
