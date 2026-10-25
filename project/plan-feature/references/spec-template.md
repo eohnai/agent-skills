@@ -49,7 +49,7 @@ What this does, for whom, and why, in 2–3 sentences.
 - **Constraints:** drop the section if there are none.
 - **Verify, Seam:** the place the tests drive the feature from, such as an HTTP endpoint, a CLI command, or a public function. Use the highest seam that already exists. Fewer seams are better, and one is best.
 - **Verify, Commands:** the test, lint, and run commands for this repo. Copy them from the README, the CI config, or the package scripts. `next-task` starts each task's check from them.
-- **Decisions:** choices the user made between options. A choice that affects only this spec is written here in full. A choice that reaches other specs is a file in `decisions/`, linked here. `record-decision` decides which. Drop the section if there are none.
+- **Decisions:** choices the user made between options. Each is written here in 1 to 3 lines, or linked here when it is project-wide or another spec needs it too (see `record-decision`). Drop the section if there are none.
 - **My calls:** small choices you made without asking, so the user can check them.
 - **Results:** leave it out. `next-task` adds it after **Verify** when the spec is finished, with the final checks and their output.
 

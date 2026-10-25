@@ -28,7 +28,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
 | `ketchup` | Start a session: read the records and git, report where things stand |
 | `checkpoint` | End a session: update STATUS.md with progress, blockers, next steps |
-| `record-decision` | Record a choice between approaches: in the spec if only it is affected, else in `decisions/NNNN-*.md` |
+| `record-decision` | Record a choice between approaches: in the spec, or in `decisions/NNNN-*.md` if it reaches further |
 | `draft-report` | Draft a report grounded in decisions, git history, and the code |
 | `progress` | Board of what's done, left, due, and blocked per spec, and who owns what, read from the specs |
 
