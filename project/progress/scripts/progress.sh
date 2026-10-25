@@ -8,16 +8,29 @@
 #   - [ ] task @name              task owned by name
 #   Status: <value>               overrides the derived status (blocked, dropped, done)
 #   Due: YYYY-MM-DD               deadline; flagged when close or overdue
-#   Needs: <spec>, <spec>         specs that must finish first; shown as "waiting on"
+#   Needs: <spec>, <spec>         specs that must finish first, shown as "waiting on"
 #
-# Also reads <records>/notes/*-roadmap.md. Each "- `<slice>`: ..." line under a
-# "## Slices" heading that has no spec yet gets a "no spec yet" row.
+# Also reads <records>/notes/*-roadmap.md, one per area: the "# <Area> roadmap" title
+# and the "- `<slice>`: ..." lines under its "## Slices" heading. The board lists each
+# area's slices in roadmap order, with finished slices struck through and "no spec yet"
+# for slices without a spec. Specs in no roadmap come after, under "Other specs".
 #
-# Usage: bash progress.sh [records-folder]
-#   default: "." if ./STATUS.md exists, else "docs" if ./docs/STATUS.md or ./docs/specs/ exists, else "."
+# Finished specs in no roadmap, and areas whose slices are all finished, are listed on
+# one line under the board, not as rows. The Total row counts their done tasks only.
+#
+# Usage: bash progress.sh [--all] [records-folder]
+#   --all: show those as rows too
+#   default folder: "." if ./STATUS.md exists, else "docs" if ./docs/STATUS.md or ./docs/specs/ exists, else "."
 set -euo pipefail
 
-root="${1:-}"
+show_all=0
+root=""
+for arg in "$@"; do
+  case "$arg" in
+    --all) show_all=1 ;;
+    *) root="$arg" ;;
+  esac
+done
 if [ -z "$root" ]; then
   if [ -f STATUS.md ]; then root=.
   elif [ -f docs/STATUS.md ] || [ -d docs/specs ]; then root=docs
@@ -101,7 +114,7 @@ plural() { if [ "$1" -eq 1 ]; then echo "1 $2"; else echo "$1 ${2}s"; fi; }
 
 cell() { local s="${1//|/\\|}"; echo "${s:--}"; }
 
-rows=""
+closed=""
 blocked_list=""
 owners=""
 total_done=0
@@ -109,10 +122,11 @@ total_left=0
 total_blocked=0
 
 # First pass: scan every spec, so a spec's Needs can be checked against the others.
-# A spec is finished when it is marked done or dropped, or when all its tasks are ticked.
+# A spec is finished when it is marked dropped, or marked done with every task ticked.
+# All tasks ticked without the mark is not enough, because its merge request may still
+# be open. Marked done with unticked tasks is not enough either, until the user settles it.
 names=()
 scans=()
-all_names=" "
 finished=" "
 for entry in "$specs"/*; do
   if [ -d "$entry" ]; then
@@ -129,13 +143,15 @@ for entry in "$specs"/*; do
   scan="$(printf '%s\n' "$text" | scan_spec)"
   names+=("$name")
   scans+=("$scan")
-  all_names+="$name "
-  IFS=$'\037' read -r _ n_done n_left _ status _ _ _ < <(printf '%s\n' "$scan" | grep $'^S\037')
-  if printf '%s' "$status" | grep -qiE '^(done|dropped)' || { [ -z "$status" ] && [ "$n_left" -eq 0 ] && [ "$n_done" -gt 0 ]; }; then
+  IFS=$'\037' read -r _ _ n_left _ status _ _ _ < <(printf '%s\n' "$scan" | grep $'^S\037')
+  if printf '%s' "$status" | grep -qi '^dropped' ||
+     { printf '%s' "$status" | grep -qi '^done' && [ "$n_left" -eq 0 ]; }; then
     finished+="$name "
   fi
 done
 
+rests=()
+kinds=()
 for i in "${!names[@]}"; do
   name="${names[$i]}"
   scan="${scans[$i]}"
@@ -158,38 +174,128 @@ for i in "${!names[@]}"; do
     status="$status (but $n_left unticked)"
   fi
 
-  rows+="| $name | $(cell "$status") | $(cell "$(describe_due "$due" "$n_left" "$status")") | $n_done | $n_left | $n_blocked | $(cell "$next") |"$'\n'
-  blocked_list+="$(printf '%s\n' "$scan" | awk -F'\t' -v s="$name" '$1 == "B" { print "- " s ": " $2 }')"$'\n'
-  owners+="$(printf '%s\n' "$scan" | grep '^O' || true)"$'\n'
+  # The row after its name cell, so a roadmap can strike the name through.
+  rests+=(" $(cell "$status") | $(cell "$(describe_due "$due" "$n_left" "$status")") | $n_done | $n_left | $n_blocked | $(cell "$next") |")
+
+  # A finished spec is closed: its done tasks still count, but its open and blocked
+  # tasks don't, because nobody will do them.
+  kind=""
+  case "$finished" in
+    *" $name "*) kind="$(printf '%s' "$status" | grep -oiE '^(done|dropped)' | tr '[:upper:]' '[:lower:]')" ;;
+  esac
+  kinds+=("$kind")
   total_done=$((total_done + n_done))
+  if [ -n "$kind" ]; then continue; fi
   total_left=$((total_left + n_left))
   total_blocked=$((total_blocked + n_blocked))
+
+  blocked_list+="$(printf '%s\n' "$scan" | awk -F'\t' -v s="$name" '$1 == "B" { print "- " s ": " $2 }')"$'\n'
+  owners+="$(printf '%s\n' "$scan" | grep '^O' || true)"$'\n'
 done
 
-# Roadmap slices that have no spec yet. Only lines under a "## Slices" heading count.
+# Index of the spec called $1 in names, or -1.
+index_of() {
+  local i
+  for i in "${!names[@]}"; do
+    if [ "${names[$i]}" = "$1" ]; then echo "$i"; return; fi
+  done
+  echo -1
+}
+
+# The board row for the spec at index $1, with its name struck through if $2 is set.
+spec_row() {
+  local name="${names[$1]}"
+  if [ -n "${2:-}" ]; then name="~~$name~~"; fi
+  echo "| $name |${rests[$1]}"
+}
+
+# Every roadmap, as "A<tab>area" and "S<tab>slice" lines in order. The area is the
+# file's title without "roadmap", or the file name if there is no title.
+read_roadmap() {
+  local roadmap
+  for roadmap in "$root"/notes/*-roadmap.md; do
+    [ -f "$roadmap" ] || continue
+    awk -v file="$(basename "$roadmap" -roadmap.md)" '
+      /^#/ { in_slices = (tolower($0) ~ /^#+[[:space:]]*slices[[:space:]]*$/) }
+      !titled && !in_slices && /^# / { a = substr($0, 3); sub(/[[:space:]]+[Rr]oadmap[[:space:]]*$/, "", a); titled = 1 }
+      /^#/ { next }
+      in_slices && match($0, /^[[:space:]]*[-*] `[^`]+`/) {
+        if (!started) { print "A\t" (a != "" ? a : file); started = 1 }
+        s = substr($0, RSTART, RLENGTH); sub(/^[^`]*`/, "", s); sub(/`$/, "", s); print "S\t" s
+      }
+    ' "$roadmap"
+  done
+}
+
+board=""
+placed=" "
 unplanned=0
-for roadmap in "$root"/notes/*-roadmap.md; do
-  [ -f "$roadmap" ] || continue
-  while IFS= read -r slice; do
-    case "$all_names" in *" $slice "*) continue ;; esac
-    all_names+="$slice "
-    rows+="| $slice | no spec yet | - | - | - | - | write its spec with plan-feature ($(basename "$roadmap")) |"$'\n'
+area=""
+area_rows=""
+area_total=0
+area_done=0
+
+# Adds the current area to the board, or to the closed list if all its slices are finished.
+flush_area() {
+  [ "$area_total" -gt 0 ] || return 0
+  if [ "$area_done" -eq "$area_total" ] && [ "$show_all" -eq 0 ]; then
+    closed+="${closed:+, }$area (all $(plural "$area_total" slice))"
+  else
+    board+="| **$area** | $area_done of $(plural "$area_total" slice) finished | | | | | |"$'\n'"$area_rows"
+  fi
+  area_rows=""
+  area_total=0
+  area_done=0
+}
+
+while IFS=$'\t' read -r type value; do
+  if [ "$type" = A ]; then
+    flush_area
+    area="$value"
+    continue
+  fi
+  case "$placed" in *" $value "*) continue ;; esac
+  placed+="$value "
+  area_total=$((area_total + 1))
+  i="$(index_of "$value")"
+  if [ "$i" -lt 0 ]; then
+    area_rows+="| $value | no spec yet | - | - | - | - | write its spec with plan-feature |"$'\n'
     unplanned=$((unplanned + 1))
-  done < <(awk '
-    /^#/ { in_slices = (tolower($0) ~ /^#+[[:space:]]*slices[[:space:]]*$/); next }
-    in_slices && match($0, /^[[:space:]]*[-*] `[^`]+`/) {
-      s = substr($0, RSTART, RLENGTH); sub(/^[^`]*`/, "", s); sub(/`$/, "", s); print s
-    }
-  ' "$roadmap")
+  elif [ -n "${kinds[$i]}" ]; then
+    area_rows+="$(spec_row "$i" struck)"$'\n'
+    area_done=$((area_done + 1))
+  else
+    area_rows+="$(spec_row "$i")"$'\n'
+  fi
+done < <(read_roadmap)
+flush_area
+
+others=""
+for i in "${!names[@]}"; do
+  case "$placed" in *" ${names[$i]} "*) continue ;; esac
+  if [ -n "${kinds[$i]}" ] && [ "$show_all" -eq 0 ]; then
+    closed+="${closed:+, }${names[$i]} (${kinds[$i]})"
+  else
+    others+="$(spec_row "$i")"$'\n'
+  fi
 done
+if [ -n "$board" ] && [ -n "$others" ]; then
+  board+="| **Other specs** | | | | | | |"$'\n'
+fi
+board+="$others"
 
 total_note=""
 [ "$unplanned" -gt 0 ] && total_note="**+$(plural "$unplanned" slice) with no spec**"
 
 echo "| Spec | Status | Due | Done | Left | Blocked | Next task |"
 echo "|---|---|---|---|---|---|---|"
-printf '%s' "$rows"
+printf '%s' "$board"
 echo "| **Total** |${total_note:+ $total_note} | | **$total_done** | **$total_left** | **$total_blocked** | |"
+
+if [ -n "$closed" ]; then
+  echo
+  echo "**Done or dropped:** $closed. Run with \`--all\` to show them as rows."
+fi
 
 if [ -n "$(printf '%s' "$blocked_list" | tr -d '[:space:]')" ]; then
   echo

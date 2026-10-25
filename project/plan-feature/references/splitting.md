@@ -4,7 +4,7 @@ Read this when the Done-when checks fall into more than one group (see **Is it o
 
 ## 1. Write a roadmap
 
-Big work gets one roadmap file, `notes/<area>-roadmap.md`. It lists the slices in order. A slice is one future spec. The roadmap is not a spec, so use plain `-` bullets and never `- [ ]`. A slice has a spec once `specs/<slice>.md` exists, so the roadmap doesn't record that.
+Big work gets one roadmap file, `notes/<area>-roadmap.md`. It lists the slices in order. A slice is one future spec.
 
 ```markdown
 # Booking roadmap
@@ -19,7 +19,9 @@ Big work gets one roadmap file, `notes/<area>-roadmap.md`. It lists the slices i
 - `booking-sessions`: either side cancels a session, and staff end an engagement. Needs: booking-requests.
 ```
 
-Keep each slice line in this exact shape: `` - `<slice>`: <what it does>. ``, under the `## Slices` heading. The `progress` script reads these lines and shows each slice that has no spec yet.
+Keep the `# <Area> roadmap` title, and keep each slice line in this exact shape: `` - `<slice>`: <what it does>. ``, under the `## Slices` heading. The `progress` script reads these lines. It prints the board in this order under the area's name, crosses off finished slices, and shows the slices that have no spec yet.
+
+Don't tick slices or mark them done here. Use plain `-` bullets, never `- [ ]`. A slice is finished when its spec is finished: `Status: done` with every task ticked, or `Status: dropped`. The board shows that.
 
 Context that several specs share goes under **Shared context** once. Examples are links to team documents and questions for the team. Each spec links to the roadmap instead of copying it.
 

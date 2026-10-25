@@ -31,7 +31,9 @@ Due: 2026-11-20
 | `Due: YYYY-MM-DD` | Deadline. Must be this exact format to be checked |
 | `Needs: <spec>, <spec>` | Specs that must finish first. Until they do, a spec with no ticked tasks shows `waiting on <spec>` |
 
-The script also reads `notes/*-roadmap.md` (see `plan-feature`). Each `` - `<slice>`: `` line under a `## Slices` heading that has no spec yet gets a `no spec yet` row, and the Total row counts them.
+A spec is **finished** when it has `Status: dropped`, or `Status: done` with every task ticked. All tasks ticked without the line is not finished, because its merge request may still be open. `done` with unticked tasks is not finished either, until the user settles it.
+
+The script also reads `notes/*-roadmap.md` (see `plan-feature`). The board lists each roadmap's area with the `` - `<slice>`: `` lines under its `## Slices` heading, in roadmap order, under a row that says how many of its slices are finished. A finished slice (`Status: done` or `dropped`) is crossed off. A slice with no spec yet gets a `no spec yet` row, and the Total row counts them. Specs in no roadmap come after, under **Other specs**.
 
 ## Show the board
 
@@ -41,7 +43,7 @@ Run from the project root and show its output:
 bash <this skill's directory>/scripts/progress.sh
 ```
 
-It prints the board (Status, Due, Done, Left, Blocked, Next task), then a list of blocked tasks with reasons, then open and blocked counts per owner if any tasks have `@owners`.
+It prints the board (Status, Due, Done, Left, Blocked, Next task), then a list of blocked tasks with reasons, then open and blocked counts per owner if any tasks have `@owners`. Finished specs in no roadmap, and roadmap areas whose slices are all finished, get no row. They are listed on one line under the board. The Total row counts their done tasks, but not their open or blocked ones, because nobody will do those. Add `--all` to show them as rows, when the user asks about finished work.
 
 Then add two or three lines of commentary, most urgent first:
 
@@ -57,7 +59,7 @@ Derived statuses: `not started`, `waiting on <spec>`, `in progress`, `blocked (a
 - **A task got finished:** tick its checkbox (`- [x]`). Only tick work that exists in the code.
 - **A task is blocked:** add `(blocked: <reason>)` to it; remove that when it's unblocked.
 - **A spec is blocked or dropped:** add or edit its `Status:` line, with the reason for blocked.
-- **Done:** `all ticked` is not done. Set `Status: done` only when the user says they're satisfied with the result. If they haven't said so, ask.
+- **Done:** `all ticked` is not done. `next-task` adds `Status: done` as the last commit on the spec's branch, so the default branch shows it once the merge request merges. Otherwise, set it only when the user says they're satisfied with the result. If they haven't said so, ask. Specs that need this one stay `waiting on` it until then.
 - **Deadlines and owners:** add `Due:` or `@name` only when the user gives them; don't guess.
 - **New work:** add `- [ ]` tasks to the relevant spec. Don't track tasks anywhere else.
 
