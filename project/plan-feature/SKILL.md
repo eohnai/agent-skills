@@ -12,9 +12,26 @@ Turn an idea into a spec the other project skills can track: what's being built 
 
 The usual failure is planning what you assume the user wants. Find out what they actually want first, and mark every guess as yours.
 
+## The levels
+
+| Level | What it is | Where it lives |
+|---|---|---|
+| Project | everything the records folder tracks | `STATUS.md` |
+| Area | one service or workstream | `specs/<area>/area.md` |
+| Spec | one feature: one branch, one merge request | `specs/<area>/<feature>.md` |
+| Task | one session, one commit | a `- [ ]` line in the spec |
+
+## What an area is
+
+An area is one part of the project with its own code and its own list of specs. In a project made of services, each service is an area, such as `booking` or `matching`. In a single app, an area is a workstream, such as `baseline-detection` or `deployment`. Every spec belongs to one area. A small project can have just one area.
+
+The area file, `specs/<area>/area.md`, says what the area owns and lists its specs in build order, including specs not written yet. Write it from `references/area-template.md`. It isn't a spec, so it has no tasks.
+
+A spec that changes two areas belongs to the area that owns the result. Name the other area in its Goal.
+
 ## What a spec is
 
-A spec is one feature: one change that can be reviewed and merged on its own. In git, it is one branch and one merge request, named after the spec file. For example, in a booking service, "a client requests a trainer" is one spec and "a trainer cancels a session" is another. The whole booking service is not one spec.
+A spec is one feature: one change that can be reviewed and merged on its own. In git, it is one branch and one merge request, named after its area and file (`specs/booking/requests.md` → `feat/booking-requests`). For example, in a booking service, "a client requests a trainer" is one spec and "a trainer cancels a session" is another. The whole booking service is not one spec.
 
 A spec:
 - has its own Done-when checks, which pass when its last task is done;
@@ -39,7 +56,9 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
 ## Steps
 
 1. **Size it.** If the request is a small, clear change (one area of the code, nothing to decide), say so and suggest doing it directly. A spec is for work that takes more than one session. If the request names a whole service, app, or assignment, say it is probably several features. Step 4 decides.
-2. **Read first.** Skim the code and any existing spec the feature touches, so questions and tasks match what's already there. If the feature touches code that neither you nor the user understands yet (several files, services, or layers), use `how` on that area first. If `notes/<area>-roadmap.md` exists, read it, and write the spec for the next slice that has no spec yet. If `specs/<name>.md` or `specs/<name>/` exists, update it instead of starting over: add tasks, never untick or delete done ones. If an existing spec holds more than one feature, offer to split it with `references/splitting.md`.
+2. **Read first.** Skim the code and any existing spec the feature touches, so questions and tasks match what's already there. If the feature touches code that neither you nor the user understands yet (several files, services, or layers), use `how` on that part of the code first.
+
+   Then find the area. If it isn't clear which area the feature belongs to, ask. If the area has no `area.md` yet, create one from `references/area-template.md`. If the user named no feature, write the next spec that the area file lists but that has no file yet. If `specs/<area>/<feature>.md` exists, update it instead of starting over: add tasks, never untick or delete done ones. If an existing spec holds more than one feature, offer to split it with `references/splitting.md`. If specs sit outside area folders, or `notes/*-roadmap.md` files exist, offer to move them with **Moving to areas** in `references/area-template.md`.
 3. **Ask what's missing.** If the request already says what it does and how to check it, ask the remaining items in one message. If it's vague, ask one question per message, starting with an open one ("Walk me through when you'd use this"); when the user says "you pick", propose something concrete. Cover:
    - What it does, from the user's point of view, and why now.
    - Done when: observable checks ("`pytest tests/auth` passes", "logging in with a wrong password shows an error"), not "works well". At least one check runs the real thing (the app, an endpoint, an e2e suite), not only unit tests.
@@ -53,13 +72,14 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
    - is ordered so earlier tasks unblock later ones. Removal and refactoring that make the change easier come first: make the change easy, then make the easy change;
    - gets `@owner` or `(blocked: reason)` only when known.
 7. **Check the tasks against the spec.** Every Done-when check is covered by at least one task, and no task does work outside the Goal. Add or cut tasks until both hold. If the spec now has more than about 8 tasks, step 4 missed a split, so go back to step 4.
-8. **Write the spec** from `references/spec-template.md`, then show the user the task list and ask if anything is missing or mis-sized. No task starts until they approve it.
-9. **Hand off.** Suggest starting the first task with `next-task`, ideally in a fresh session. If you wrote a roadmap, name the slices that still have no spec, and say that running `plan-feature` again writes the next one.
+8. **Write the spec** as `specs/<area>/<feature>.md` from `references/spec-template.md`, and add its line to the area file's **Specs** list if it isn't there. Then show the user the task list and ask if anything is missing or mis-sized. No task starts until they approve it.
+9. **Hand off.** Suggest starting the first task with `next-task`, ideally in a fresh session. If the area file lists specs that have no file yet, name them, and say that running `plan-feature` again writes the next one.
 
 ## Common mistakes
 
 - Writing the implementation steps for every task now. Step-by-step planning happens per task in `next-task`, when the code it builds on exists.
-- One spec for a whole service or app. It becomes one branch with one merge request that is too big to review.
+- One spec for a whole service or app. It becomes one branch with one merge request that is too big to review. A service is an area, with several specs.
+- A spec outside an area folder. The board shows it under **No area**, apart from the specs it belongs with.
 - A Done-when check that bundles many checks, so several features look like one.
 - Tasks too big to finish and verify in one session ("Build the backend").
 - Tasks too small to check alone ("Add the table", "Update the README").

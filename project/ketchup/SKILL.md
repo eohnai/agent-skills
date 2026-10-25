@@ -24,7 +24,7 @@ Inside it: `STATUS.md`, `decisions/NNNN-*.md`, `specs/`, `notes/`, `reports/`. A
 1. `STATUS.md` in full.
 2. `decisions/`: list filenames; read only the ones relevant to the current "Next" items.
 3. `specs/`: run the progress board (**REQUIRED:** use the `progress` skill's script) rather than trusting prose about progress. Read only the specs the "Next" items touch.
-4. `notes/<area>-roadmap.md` for the area those specs belong to, if it exists. The board already shows its slices. Read it for the context the area's specs share and the open questions for the team.
+4. `specs/<area>/area.md` for the area those specs belong to. The board already shows its specs. Read it for what the area owns, the context its specs share, and its open questions.
 5. Git, for the repo itself or each repo under `repos/`:
    - `git status --short` and current branch
    - `git log --oneline` since STATUS.md last changed (`git log -1 --format=%cI -- STATUS.md` in the records repo gives the time), or the last 15 commits

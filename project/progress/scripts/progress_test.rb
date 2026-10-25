@@ -64,14 +64,26 @@ class ProgressTest < Minitest::Test
     assert_equal "in progress", row(out, "c")[1]
   end
 
-  def test_folder_spec_counts_as_one_spec
+  def test_area_folder_groups_its_specs
     out = board(
-      "specs/booking/requests.md" => "- [x] one\n- [ ] two\n",
+      "specs/booking/requests.md" => "- [x] one\n- [ ] two (blocked: no key)\n",
       "specs/booking/sessions.md" => "- [ ] three\n"
     )
 
-    assert_equal ["booking", "in progress", "-", "1", "2", "0", "two"], row(out, "booking")
-    assert_nil row(out, "requests")
+    assert_equal "0 of 2 specs finished", row(out, "**booking**")[1]
+    assert_equal ["requests", "blocked (all open tasks)", "-", "1", "1", "1", "two (blocked: no key)"], row(out, "requests")
+    assert_equal "not started", row(out, "sessions")[1]
+    assert_includes out, "- booking/requests: two (blocked: no key)"
+  end
+
+  def test_needs_finds_a_spec_in_the_same_area_or_by_its_full_id
+    out = board(
+      "specs/booking/scaffold.md" => "Status: done\n\n- [x] first\n",
+      "specs/booking/requests.md" => "Needs: scaffold, matching/scores\n\n- [ ] first\n",
+      "specs/matching/scores.md" => "- [ ] first\n"
+    )
+
+    assert_equal "waiting on matching/scores", row(out, "requests")[1]
   end
 
   def test_done_and_dropped_specs_go_on_one_line
@@ -95,14 +107,14 @@ class ProgressTest < Minitest::Test
 
   def test_done_with_unticked_tasks_is_not_finished
     out = board(
-      "specs/odd.md" => "Status: done\n\n- [x] one\n- [ ] two\n",
-      "specs/later.md" => "Needs: odd\n\n- [ ] first\n",
-      "notes/area-roadmap.md" => "# Area roadmap\n\n## Slices\n- `odd`: one.\n"
+      "specs/area/odd.md" => "Status: done\n\n- [x] one\n- [ ] two\n",
+      "specs/later.md" => "Needs: area/odd\n\n- [ ] first\n",
+      "specs/area/area.md" => "# Area\n\n## Specs\n- `odd`: one.\n"
     )
 
     assert_equal "done (but 1 unticked)", row(out, "odd")[1]
-    assert_equal "waiting on odd", row(out, "later")[1]
-    assert_equal "0 of 1 slice finished", row(out, "**Area**")[1]
+    assert_equal "waiting on area/odd", row(out, "later")[1]
+    assert_equal "0 of 1 spec finished", row(out, "**Area**")[1]
     refute_includes out, "Done or dropped"
   end
 
@@ -116,15 +128,14 @@ class ProgressTest < Minitest::Test
     refute_includes out, "Blocked tasks"
   end
 
-  def test_slices_heading_can_be_any_level
+  def test_specs_heading_can_be_any_level
     out = board(
-      "specs/login.md" => "- [ ] first\n",
-      "notes/booking-roadmap.md" => "# Booking roadmap\n\n### Slices\n- `booking-a`: one.\n",
-      "notes/billing-roadmap.md" => "# Slices\n- `billing-a`: one.\n"
+      "specs/booking/area.md" => "# Booking\n\n### Specs\n- `a`: one.\n",
+      "specs/billing/area.md" => "## Specs\n- `b`: one.\n"
     )
 
-    assert_equal "no spec yet", row(out, "booking-a")[1]
-    assert_equal "0 of 1 slice finished", row(out, "**billing**")[1]
+    assert_equal "no spec yet", row(out, "a")[1]
+    assert_equal "0 of 1 spec finished", row(out, "**billing**")[1]
   end
 
   def test_due_dates
@@ -139,74 +150,80 @@ class ProgressTest < Minitest::Test
     assert_equal "next week (not a YYYY-MM-DD date)", row(out, "vague")[2]
   end
 
-  BOOKING_ROADMAP = <<~MD
-    # Booking roadmap
+  BOOKING_AREA = <<~MD
+    # Booking
+
+    Owns everything after a client clicks Request.
+
+    ## Specs
+    - `scaffold`: skeleton and pipeline.
+    - `booking/requests`: a client requests a trainer. Needs: scaffold.
+    - `sessions`: either side cancels.
 
     ## Shared context
-    - `not-a-slice`: under another heading
-
-    ## Slices
-    - `booking-scaffold`: skeleton and pipeline.
-    - `booking-requests`: a client requests a trainer. Needs: booking-scaffold.
-    - `booking-sessions`: either side cancels.
-
-    ## Questions for the team
-    - `also-not-a-slice`: ignored
+    - `not-a-spec`: under another heading
   MD
 
-  def test_board_follows_the_roadmaps
+  def test_board_follows_the_area_files
     out = board(
-      "notes/booking-roadmap.md" => BOOKING_ROADMAP,
-      "notes/matching-roadmap.md" => "# Matching Roadmap\n\n## Slices\n- `matching-scores`: score each trainer.\n",
-      "specs/booking-scaffold.md" => "Status: done\n\n- [x] first\n",
-      "specs/booking-requests.md" => "- [x] first\n- [ ] second\n",
-      "specs/matching-scores.md" => "- [ ] first\n",
+      "specs/booking/area.md" => BOOKING_AREA,
+      "specs/booking/scaffold.md" => "Status: done\n\n- [x] first\n",
+      "specs/booking/requests.md" => "- [x] first\n- [ ] second\n",
+      "specs/booking/extra.md" => "- [ ] first\n",
+      "specs/matching/area.md" => "# Matching\n\n## Specs\n- `scores`: score each trainer.\n",
+      "specs/matching/scores.md" => "- [ ] first\n",
       "specs/login.md" => "- [ ] first\n"
     )
 
     names = out.lines.grep(/\A\| /).map { |l| l.split("|")[1].strip }
     assert_equal(
-      ["Spec", "**Booking**", "~~booking-scaffold~~", "booking-requests", "booking-sessions",
-       "**Matching**", "matching-scores", "**Other specs**", "login", "**Total**"],
+      ["Spec", "**Booking**", "~~scaffold~~", "requests", "sessions", "extra",
+       "**Matching**", "scores", "**No area**", "login", "**Total**"],
       names
     )
-    assert_equal "1 of 3 slices finished", row(out, "**Booking**")[1]
-    assert_equal "done", row(out, "~~booking-scaffold~~")[1]
-    assert_equal "no spec yet", row(out, "booking-sessions")[1]
-    assert_nil row(out, "not-a-slice")
-    assert_nil row(out, "also-not-a-slice")
-    assert_equal "**+1 slice with no spec**", row(out, "**Total**")[1]
+    assert_equal "1 of 4 specs finished", row(out, "**Booking**")[1]
+    assert_equal "done", row(out, "~~scaffold~~")[1]
+    assert_equal "no spec yet", row(out, "sessions")[1]
+    assert_nil row(out, "not-a-spec")
+    assert_equal "**+1 spec not written yet**", row(out, "**Total**")[1]
   end
 
-  def test_area_with_every_slice_finished_goes_on_one_line
+  def test_area_with_every_spec_finished_goes_on_one_line
     files = {
-      "notes/booking-roadmap.md" => "# Booking roadmap\n\n## Slices\n- `a`: one.\n- `b`: two.\n",
-      "specs/a.md" => "Status: done\n\n- [x] first\n",
-      "specs/b.md" => "Status: dropped\n\n- [ ] first\n"
+      "specs/booking/area.md" => "# Booking\n\n## Specs\n- `a`: one.\n- `b`: two.\n",
+      "specs/booking/a.md" => "Status: done\n\n- [x] first\n",
+      "specs/booking/b.md" => "Status: dropped\n\n- [ ] first\n"
     }
 
     out = board(files)
     assert_nil row(out, "**Booking**")
-    assert_includes out, "**Done or dropped:** Booking (all 2 slices)."
+    assert_includes out, "**Done or dropped:** Booking (all 2 specs)."
 
     out = board(files, "--all")
-    assert_equal "2 of 2 slices finished", row(out, "**Booking**")[1]
+    assert_equal "2 of 2 specs finished", row(out, "**Booking**")[1]
     assert_equal "dropped", row(out, "~~b~~")[1]
   end
 
-  def test_area_falls_back_to_the_file_name
-    out = board(
-      "specs/login.md" => "- [ ] first\n",
-      "notes/billing-roadmap.md" => "## Slices\n- `billing-charge`: charge a client.\n"
-    )
+  def test_area_falls_back_to_the_folder_name
+    out = board("specs/billing/area.md" => "## Specs\n- `charge`: charge a client.\n")
 
-    assert_equal "0 of 1 slice finished", row(out, "**billing**")[1]
+    assert_equal "0 of 1 spec finished", row(out, "**billing**")[1]
   end
 
-  def test_no_other_specs_heading_without_a_roadmap
+  def test_no_area_heading_without_areas
     out = board("specs/a.md" => "- [ ] first\n")
 
-    refute_includes out, "Other specs"
+    refute_includes out, "No area"
+  end
+
+  def test_old_roadmaps_get_a_note
+    out = board(
+      "specs/a.md" => "- [ ] first\n",
+      "notes/booking-roadmap.md" => "# Booking roadmap\n\n## Slices\n- `a`: one.\n"
+    )
+
+    assert_nil row(out, "**Booking**")
+    assert_includes out, "**Old roadmaps:** notes/booking-roadmap.md."
   end
 
   def test_total_row_without_slices_has_an_empty_cell

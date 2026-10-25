@@ -22,8 +22,8 @@ Use plain `-` bullets, never `- [ ]`, because the `progress` script counts those
 Give the commands to commit it on its own:
 
 ```bash
-git add docs/specs/booking-requests.md
-git commit -m "docs: mark booking-requests done with its check results"
+git add docs/specs/booking/requests.md
+git commit -m "docs: mark booking/requests done with its check results"
 ```
 
 If the review asks for changes, run the checks again after them and update **Results**.

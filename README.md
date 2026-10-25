@@ -68,15 +68,20 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 (a workspace that wraps code repos in `repos/`), otherwise `./docs/` (a normal repo).
 
 ```
-STATUS.md         # now, next, blockers
+STATUS.md         # project: now, next, blockers
 decisions/0001-*.md  # choices that reach more than one spec (others go in the spec)
-specs/            # one feature per spec: <area>-<feature>.md or <name>/;
+specs/<area>/     # one folder per service or workstream
+  area.md         # what the area owns, and its specs in build order
+  <feature>.md    # one spec: one feature, one branch, one merge request;
                   # tasks as - [ ] open, - [x] done; optional: Due: YYYY-MM-DD,
-                  # Needs: <spec>, Status:, @owner, (blocked: reason)
+                  # Needs: <feature> or <area>/<feature>, Status:, @owner, (blocked: reason)
 goals/            # <topic>.md goal blocks and <topic>-log.md run logs
-notes/            # <area>-roadmap.md (slices of big work), plus briefs and meeting notes
+notes/            # briefs and meeting notes
 reports/
 ```
+
+Four levels: the project (`STATUS.md`) has areas, an area has specs, and a spec has
+tasks. Each task is one session and one commit.
 
 ## Global instructions
 

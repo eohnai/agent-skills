@@ -1,12 +1,12 @@
 # Spec template
 
-Write each spec as `specs/<name>.md`. For a slice from a roadmap, the name is the slice name, for example `specs/booking-requests.md`.
+Write each spec as `specs/<area>/<feature>.md`, with the feature name from the area file's **Specs** list, for example `specs/booking/requests.md`.
 
 ```markdown
 # <Feature name>
 
 Due: YYYY-MM-DD
-Needs: booking-scaffold
+Needs: scaffold
 
 ## Goal
 What this does, for whom, and why, in 2–3 sentences.
@@ -40,12 +40,12 @@ What this does, for whom, and why, in 2–3 sentences.
 ## Header lines
 
 - Drop the `Due:` line if there's no deadline.
-- Drop the `Needs:` line if the spec can start now. Otherwise list the specs that must merge first, separated by commas.
+- Drop the `Needs:` line if the spec can start now. Otherwise list the specs that must merge first, separated by commas. Write `<feature>` for a spec in the same area, or `<area>/<feature>` for a spec in another area.
 - Leave out `Status:`. `progress` derives it from the checkboxes until someone marks the spec blocked, dropped, or done.
 
 ## Sections
 
-- **Goal:** if the spec comes from a roadmap, link the roadmap here instead of copying its shared context.
+- **Goal:** if the area file has shared context, link the area file here instead of copying it.
 - **Constraints:** drop the section if there are none.
 - **Verify, Seam:** the place the tests drive the feature from, such as an HTTP endpoint, a CLI command, or a public function. Use the highest seam that already exists. Fewer seams are better, and one is best.
 - **Verify, Commands:** the test, lint, and run commands for this repo. Copy them from the README, the CI config, or the package scripts. `next-task` starts each task's check from them.
