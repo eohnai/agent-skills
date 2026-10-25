@@ -16,7 +16,7 @@ fresh session → next-task → /clear → fresh session → next-task → ...
 
 ## Steps
 
-1. **Catch up.** If `ketchup` hasn't run in this session, **REQUIRED:** use `ketchup`. If the project has no specs, suggest `plan-feature` first.
+1. **Catch up.** If `ketchup` hasn't run in this session, **REQUIRED:** use `ketchup`. If the project has no area files, suggest `/plan-project` first. If its areas have no spec to start, suggest `/plan-feature`.
 2. **Pick one task.** Pick the task the user named. If they named none, pick the board's next task from the spec `ketchup` pointed to. Skip blocked tasks. Skip specs whose `Needs:` specs haven't merged yet, unless the user wants to stack the branch (step 5). Confirm the pick with the user in one line before planning.
 3. **Size check.** If the task can't be finished and verified in this session (several areas of the code, an unsettled design choice), propose splitting it into smaller `- [ ]` tasks in the spec and do only the first. Change the spec only if the user agrees. If the spec itself holds more than one feature (see `plan-feature`, **What a spec is**), say so and suggest splitting it with `plan-feature` before you start.
 4. **Grind or hands-on?** If the task is repetitive and has a pass/fail check that can run every turn (make failing tests pass, migrate every caller of an API, fix all lint errors), offer to run it unattended as a `/goal`. If the user agrees, **REQUIRED:** use `make-goal` with this task as the aim, instead of the steps below; the goal checkpoints itself. When you hand over the goal block, tell the user to commit, `/clear`, and run `next-task` once the goal finishes. Anything needing judgment along the way (design, UI, choosing between approaches) stays hands-on.

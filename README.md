@@ -24,7 +24,8 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 
 | Skill | Use it to |
 |---|---|
-| `plan-feature` | Turn an idea into a spec: goal, done-when checks, decisions, session-sized tasks |
+| `plan-project` | Set up a project and its areas (services or workstreams), and list each area's specs in build order (manual: `/plan-project`) |
+| `plan-feature` | Turn one feature into a spec: goal, done-when checks, decisions, session-sized tasks (manual: `/plan-feature`) |
 | `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
 | `ketchup` | Start a session: read the records and git, report where things stand |
 | `checkpoint` | End a session: update STATUS.md with progress, blockers, next steps |

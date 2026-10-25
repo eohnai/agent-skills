@@ -32,14 +32,3 @@ Owns everything after a client clicks **Request**: the request, the trainer's an
 - **Open questions:** questions for the team or the user that affect more than one spec. Drop the section if there are none.
 
 Don't tick specs or mark them done here. Use plain `-` bullets, never `- [ ]`, because the `progress` script counts those as tasks. A spec is finished when its own file says so: `Status: done` with every task ticked, or `Status: dropped`. The board shows that.
-
-## Moving to areas
-
-Read this when specs sit directly in `specs/`, or the project has old `notes/<area>-roadmap.md` files.
-
-1. Propose the areas and which specs go in each. Base them on what each spec changes. Old spec names often start with the area (`booking-requests` → area `booking`). Ask the user to confirm. Ask before you move anything, because open branches and teammates may use the old paths.
-2. For each old roadmap, create `specs/<area>/area.md` from it. Rename `## Slices` to `## Specs`, and drop the area from each name (`` `booking-requests` `` → `` `requests` ``). Add a first paragraph that says what the area owns.
-3. Move each spec with `git mv`, and drop the area from its file name (`specs/booking-requests.md` → `specs/booking/requests.md`). Its branch name stays the same: `feat/booking-requests`.
-4. Update every `Needs:` line. Use `<feature>` for a spec in the same area, or `<area>/<feature>` for a spec in another area.
-5. Delete the old roadmap files, and fix links to the old paths (`grep -rn "notes/.*-roadmap\|specs/<old-name>"`).
-6. Run the `progress` script. No spec should be left under **No area**, and no **Old roadmaps** line should be printed.

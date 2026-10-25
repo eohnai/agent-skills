@@ -1,6 +1,6 @@
 # Splitting work into specs
 
-Read this when the Done-when checks fall into more than one group (see **Is it one feature?** in `SKILL.md`), or when an existing spec holds more than one feature.
+Read this when you list an area's specs, when one spec's Done-when checks fall into more than one group (see **Is it one feature?** in `plan-feature`), or when an existing spec holds more than one feature.
 
 ## 1. List the specs in the area file
 

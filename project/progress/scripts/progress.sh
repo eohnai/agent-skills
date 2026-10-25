@@ -318,7 +318,7 @@ fi
 roadmaps="$(cd "$root" && ls notes/*-roadmap.md 2>/dev/null | tr '\n' ' ' || true)"
 if [ -n "$roadmaps" ]; then
   echo
-  echo "**Old roadmaps:** ${roadmaps% }. The board no longer reads them. Move each to \`specs/<area>/area.md\` (see \`plan-feature\`)."
+  echo "**Old roadmaps:** ${roadmaps% }. The board no longer reads them. Move each to \`specs/<area>/area.md\` with \`/plan-project\`."
 fi
 
 if [ -n "$(printf '%s' "$blocked_list" | tr -d '[:space:]')" ]; then

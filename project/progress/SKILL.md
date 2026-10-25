@@ -11,7 +11,7 @@ Show what's done, what's left, what's due, and what's blocked per spec, derived 
 
 ## Spec convention
 
-Specs live in `specs/` inside the records folder (`./` if `./STATUS.md` exists, else `docs/`), one folder per area: `specs/<area>/<feature>.md`, with the id `<area>/<feature>` (see `plan-feature`). Everything except the checkboxes is optional:
+Specs live in `specs/` inside the records folder (`./` if `./STATUS.md` exists, else `docs/`), one folder per area: `specs/<area>/<feature>.md`, with the id `<area>/<feature>` (see `plan-project`). Everything except the checkboxes is optional:
 
 ```markdown
 Status: in progress
@@ -33,7 +33,7 @@ Due: 2026-11-20
 
 A spec is **finished** when it has `Status: dropped`, or `Status: done` with every task ticked. All tasks ticked without the line is not finished, because its merge request may still be open. `done` with unticked tasks is not finished either, until the user settles it.
 
-The board groups the specs by area, under a row that says how many of the area's specs are finished. It lists them in the order of the `` - `<feature>`: `` lines under the `## Specs` heading of `specs/<area>/area.md`. A finished spec (`Status: done` or `dropped`) is crossed off. A line with no spec file gets a `no spec yet` row, and the Total row counts them. Specs placed directly in `specs/` come last, under **No area**. If the project still has `notes/*-roadmap.md` files, the script names them under the board. Suggest moving them, and any specs under **No area**, with `plan-feature`.
+The board groups the specs by area, under a row that says how many of the area's specs are finished. It lists them in the order of the `` - `<feature>`: `` lines under the `## Specs` heading of `specs/<area>/area.md`. A finished spec (`Status: done` or `dropped`) is crossed off. A line with no spec file gets a `no spec yet` row, and the Total row counts them. Specs placed directly in `specs/` come last, under **No area**. If the project still has `notes/*-roadmap.md` files, the script names them under the board. Suggest moving them, and any specs under **No area**, with `/plan-project`.
 
 ## Show the board
 
