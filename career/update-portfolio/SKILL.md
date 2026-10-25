@@ -31,7 +31,7 @@ If a path is missing, ask where it moved; don't recreate it.
 ## Steps
 
 1. **Gather facts** from the source project: its records (`STATUS.md`, `decisions/`, `specs/`, `reports/`), README, git log, and code. For a job, ask the user for what they did and what's cleared; there may be no repo.
-2. **Ground every claim.** Same rules as `draft-report`: code wins over plans, and numbers come only from a recorded verification, a file in the repo, or a command you run now. Otherwise ask, or leave the number out. Never estimate a metric.
+2. **Ground every claim.** Same rules as `draft-report`: code wins over plans, and numbers come only from a spec's **Results** section, another file in the repo, a command you run now, or a Verification entry in the git history of STATUS.md. Otherwise ask, or leave the number out. Never estimate a metric.
 3. **Draft the fact bank entry** in the file's existing shape: `summary`, `description` points, `tech`, `line`, dates as `YYYY-MM` (`end: null` if ongoing). Update the entry if one already exists.
 4. **Draft 2–3 resume bullets** condensed from it, matching the current resume: start with a verb, name the stack, end with the result or scale.
 5. **Propose placement.** For the master and each variant, say whether the bullets go in and why (the variant's focus). The resume is one page: name the project each addition replaces. Replaced projects are commented out, not deleted, as the resume already does.

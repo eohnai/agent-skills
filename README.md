@@ -27,8 +27,8 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | `plan-feature` | Turn an idea into a spec: goal, done-when checks, decisions, session-sized tasks |
 | `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
 | `ketchup` | Start a session: read the records and git, report where things stand |
-| `checkpoint` | End a session: update STATUS.md with progress, verification, next steps |
-| `record-decision` | Write a `decisions/NNNN-*.md` record for a choice between approaches |
+| `checkpoint` | End a session: update STATUS.md with progress, blockers, next steps |
+| `record-decision` | Record a choice between approaches: in the spec if only it is affected, else in `decisions/NNNN-*.md` |
 | `draft-report` | Draft a report grounded in decisions, git history, and the code |
 | `progress` | Board of what's done, left, due, and blocked per spec, and who owns what, read from the specs |
 
@@ -68,13 +68,13 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 (a workspace that wraps code repos in `repos/`), otherwise `./docs/` (a normal repo).
 
 ```
-STATUS.md
-decisions/0001-*.md
+STATUS.md         # now, next, blockers, last 10 log entries
+decisions/0001-*.md  # choices that reach more than one spec (others go in the spec)
 specs/            # one feature per spec: <area>-<feature>.md or <name>/;
                   # tasks as - [ ] open, - [x] done; optional: Due: YYYY-MM-DD,
                   # Needs: <spec>, Status:, @owner, (blocked: reason)
 goals/            # <topic>.md goal blocks and <topic>-log.md run logs
-notes/            # <area>-roadmap.md lists the slices (future specs) of big work
+notes/            # <area>-roadmap.md (slices of big work), plus briefs and meeting notes
 reports/
 ```
 
