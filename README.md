@@ -68,7 +68,7 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 (a workspace that wraps code repos in `repos/`), otherwise `./docs/` (a normal repo).
 
 ```
-STATUS.md         # now, next, blockers, last 10 log entries
+STATUS.md         # now, next, blockers
 decisions/0001-*.md  # choices that reach more than one spec (others go in the spec)
 specs/            # one feature per spec: <area>-<feature>.md or <name>/;
                   # tasks as - [ ] open, - [x] done; optional: Due: YYYY-MM-DD,

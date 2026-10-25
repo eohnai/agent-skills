@@ -13,7 +13,7 @@ Write a report grounded in what the project actually did: its recorded decisions
 ## Inputs
 
 1. **The brief.** If the user has an assignment brief, rubric, or required structure, get it first and follow its headings and length. If there isn't one, use: Overview, Design, Implementation, Testing and Results, Challenges, Future Work.
-2. **Records folder** (`./` if `./STATUS.md` exists, else `docs/`): `decisions/` and each spec's **Decisions** section for design rationale, `specs/` for intended behavior and each finished spec's **Results**, the STATUS.md Log for the recent timeline. STATUS.md keeps only the newest 10 Log entries. For older ones, and for old Verification sections, read its history with `git log -p -- STATUS.md`.
+2. **Records folder** (`./` if `./STATUS.md` exists, else `docs/`): `decisions/` and each spec's **Decisions** section for design rationale, `specs/` for intended behavior and each finished spec's **Results**, Older versions of STATUS.md may have Log and Verification sections. Read them with `git log -p -- STATUS.md`.
 3. **Git log** for what was built and when.
 4. **The code** for every implementation claim.
 

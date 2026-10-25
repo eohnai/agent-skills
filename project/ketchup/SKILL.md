@@ -27,7 +27,7 @@ Inside it: `STATUS.md`, `decisions/NNNN-*.md`, `specs/`, `notes/`, `reports/`. A
 4. `notes/<area>-roadmap.md` for the area those specs belong to, if it exists. The board already shows its slices. Read it for the context the area's specs share and the open questions for the team.
 5. Git, for the repo itself or each repo under `repos/`:
    - `git status --short` and current branch
-   - `git log --oneline` since the date of the last STATUS.md log entry (or the last 15 commits)
+   - `git log --oneline` since STATUS.md last changed (`git log -1 --format=%cI -- STATUS.md` in the records repo gives the time), or the last 15 commits
 6. The code behind any claim that matters for the next step.
 
 **Code wins.** If STATUS.md or a spec says something the code contradicts (feature "done" but missing, endpoint renamed, task list out of date), trust the code and report the record as stale. Also report a spec whose tasks are all ticked and whose branch has merged, but which has no `Status: done` line. The board doesn't count it as finished, so specs that need it keep waiting. Do not fix records here. That is `checkpoint`'s job.
