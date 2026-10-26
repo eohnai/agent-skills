@@ -17,14 +17,14 @@ Project records live in one folder, the **records folder**:
 2. `./docs/STATUS.md` exists → records folder is `docs/` (a single repo).
 3. Neither → say there are no records yet, summarize from git and code only, and suggest running `checkpoint` to start them.
 
-Inside it: `STATUS.md`, `decisions/NNNN-*.md`, `specs/`, `notes/`, `reports/`. Also read `AGENTS.md` or `CLAUDE.md` at the root if present.
+Inside it: `STATUS.md`, `DECISIONS.md`, `specs/`, `notes/`, `reports/`. Also read `AGENTS.md` or `CLAUDE.md` at the root if present.
 
 ## What to read
 
 1. `STATUS.md` in full.
-2. `decisions/`: list filenames; read only the ones relevant to the current "Next" items.
+2. `DECISIONS.md`: list its `##` headings; read only the entries relevant to the current "Next" items. If an old `decisions/` folder exists instead, list its filenames, and mention that `record-decision` can move it into `DECISIONS.md`.
 3. `specs/`: run the progress board (**REQUIRED:** use the `progress` skill's script) rather than trusting prose about progress. Read only the specs the "Next" items touch.
-4. `specs/<area>/area.md` for the area those specs belong to. The board already shows its specs. Read it for what the area owns, the context its specs share, and its open questions.
+4. `specs/<area>/area.md` for the area those specs belong to. The board already shows its specs. Read it for what the area owns, the context its specs share, its decisions, and its open questions.
 5. Git, for the repo itself or each repo under `repos/`:
    - `git status --short` and current branch
    - `git log --oneline` since STATUS.md last changed (`git log -1 --format=%cI -- STATUS.md` in the records repo gives the time), or the last 15 commits

@@ -42,7 +42,7 @@ ON FINISH OR STOP: set the log's Status to done, stopped, or blocked and fill in
 ---
 
 ## Context (read first)
-- docs/decisions/0007-use-fetchclient.md (why we're migrating)
+- docs/DECISIONS.md, D7 (why we're migrating)
 - src/core/fetchClient.ts (the target API)
 ````
 

@@ -28,7 +28,7 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 | `next-task` | Do one task per session: catch up, plan, do, verify, checkpoint |
 | `ketchup` | Start a session: read the records and git, report where things stand |
 | `checkpoint` | End a session: update STATUS.md with progress, blockers, next steps |
-| `record-decision` | Record a choice between approaches: in the spec, or in `decisions/NNNN-*.md` if it reaches further |
+| `record-decision` | Record a choice between approaches at the level it affects: the spec, the area file, or `DECISIONS.md` |
 | `draft-report` | Draft a report grounded in decisions, git history, and the code |
 | `progress` | Board of what's done, left, due, and blocked per spec, and who owns what, read from the specs |
 
@@ -69,7 +69,7 @@ The project skills look for records in one folder: `./` if `./STATUS.md` exists
 
 ```
 STATUS.md         # project: now, next, blockers
-decisions/0001-*.md  # choices that reach more than one spec (others go in the spec)
+DECISIONS.md      # choices that reach more than one area (others go in the area or spec)
 specs/<area>/     # one folder per service or workstream
   area.md         # what the area owns, and its specs in build order
   <feature>.md    # one spec: one feature, one branch, one merge request;

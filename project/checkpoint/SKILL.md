@@ -20,7 +20,7 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
 3. **Failed checks**: if a check failed or couldn't run, add it to **Blockers** with the exact command and the error. Don't record checks that passed. A ticked task already says its check passed, and the spec's **Verify** section holds the commands. A finished spec keeps its final results in its own **Results** section (see `next-task`). Never write in **Now** that tests pass without a command run this session.
 4. **Progress**: tick off the tasks completed this session in the specs themselves (see the `progress` skill for the convention). Tick a task only if its check passed this session. Then run the `progress` script. If anything is overdue or due within a week, say so in **Now**. Don't copy the board or the task list into STATUS.md, because a copy goes stale. `ketchup` runs the script again each session.
 5. **Stale records**: if a spec or older note contradicts the code, list it under Blockers as `Stale: <file>: <what the code actually does>`. Change the spec only if the user agrees.
-6. If a choice between approaches was made this session and isn't recorded (in the spec's **Decisions** section or in `decisions/`), say so and offer to run `record-decision`.
+6. If a choice between approaches was made this session and isn't recorded (in a spec's or area's **Decisions** section, or in `DECISIONS.md`), say so and offer to run `record-decision`.
 7. Show the user a short summary of what changed in STATUS.md. Do not commit; the user commits.
 
 ## STATUS.md template
