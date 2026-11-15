@@ -59,6 +59,10 @@ skill names must be unique across categories (`link.sh` stops if they aren't).
 motion, materials and typography on the web (from
 [emilkowalski/skills](https://github.com/emilkowalski/skills), MIT).
 
+**learning/**: `socratic-tutor` teaches a topic by asking questions, tracks your level
+per subskill, and drills you to mastery (from
+[janestreet/agent_skills](https://github.com/janestreet/agent_skills), MIT).
+
 **career/**: `update-portfolio` adds a finished project or role to the website's fact
 bank and the resume. Also résumé and job-search skills (`resume-*`, `cover-letter-generator`,
 `interview-prep-generator`, `job-description-analyzer`, `offer-comparison-analyzer`, and others).
