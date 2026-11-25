@@ -47,7 +47,7 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
 1. **Size it.** If the request is a small, clear change (one part of the code, nothing to decide), say so and suggest doing it directly. A spec is for work that takes more than one session. If the request names a whole service, app, or assignment, it is an area or a project, not a feature. Suggest `/plan-project` instead.
 2. **Read first.** Skim the code and any existing spec the feature touches, so questions and tasks match what's already there. If the feature touches code that neither you nor the user understands yet (several files, services, or layers), use `how` on that part of the code first.
 
-   Then find the area. If it isn't clear which area the feature belongs to, ask. If it belongs to no area yet, or specs sit outside area folders, or `notes/*-roadmap.md` files exist, stop. Tell the user to run `/plan-project` first, and say why. If the user named no feature, write the next spec that the area file lists but that has no file yet. If `specs/<area>/<feature>.md` exists, update it instead of starting over: add tasks, never untick or delete done ones. If an existing spec holds more than one feature, offer to split it with the `plan-project` skill's `references/splitting.md`.
+   Then find the area. If it isn't clear which area the feature belongs to, ask. If it belongs to no area yet, or specs sit outside area folders, or `notes/*-roadmap.md` files exist, stop. Tell the user to run `/plan-project` first, and say why. If the user named no feature, write the next spec that the area file lists but that has no file yet. If `specs/<area>/<feature>.md` exists, update it instead of starting over: add tasks, never untick or delete done ones. Edit its sections in place. If it holds dated plan, verification, or diagnosis sections, offer to clean it up first, as **What stays out of a spec** in `references/spec-template.md` describes. If an existing spec holds more than one feature, offer to split it with the `plan-project` skill's `references/splitting.md`.
 3. **Ask what's missing.** If the request already says what it does and how to check it, ask the remaining items in one message. If it's vague, ask one question per message, starting with an open one ("Walk me through when you'd use this"); when the user says "you pick", propose something concrete. Cover:
    - What it does, from the user's point of view, and why now.
    - Done when: observable checks ("`pytest tests/auth` passes", "logging in with a wrong password shows an error"), not "works well". At least one check runs the real thing (the app, an endpoint, an e2e suite), not only unit tests.
@@ -74,5 +74,6 @@ Same rule as `ketchup`: `./STATUS.md` → records folder is `.`; else `./docs/ST
 - Tasks too small to check alone ("Add the table", "Update the README").
 - "Done when" criteria nobody can check.
 - Presenting your own assumptions as things the user said.
+- Adding a new section for each round of planning or checking. A spec states what must be true now. History goes in git.
 
 Do not commit; the user commits.

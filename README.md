@@ -81,12 +81,17 @@ specs/<area>/     # one folder per service or workstream
                   # tasks as - [ ] open, - [x] done; optional: Due: YYYY-MM-DD,
                   # Needs: <feature> or <area>/<feature>, Status:, @owner, (blocked: reason)
 goals/            # <topic>.md goal blocks and <topic>-log.md run logs
-notes/            # briefs and meeting notes
+notes/            # briefs, meeting notes, and <topic>.md notes on outside systems,
+                  # rewritten to stay current (no dated sections)
 reports/
 ```
 
 Four levels: the project (`STATUS.md`) has areas, an area has specs, and a spec has
 tasks. Each task is one session and one commit.
+
+Records state what is true now, and git keeps the history. A spec never gets a
+section per task, date, or session. Each task's check result goes in its commit
+message, and a finished spec's final checks go in its **Results** section.
 
 ## Global instructions
 
